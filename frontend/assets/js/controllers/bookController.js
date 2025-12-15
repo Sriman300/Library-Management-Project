@@ -1,4 +1,4 @@
-// controllers/BookController.js
+// controllers/bookController.js
 
 import { 
     apiGetAll, 
@@ -9,8 +9,8 @@ import {
 } from "../services/bookService.js";
 
 import { showAlert } from "../components/Alert.js";
-import { renderBookTable } from "../components/BookTable.js";
-import { resetForm, fillForm } from "../components/BookForm.js";
+import { renderBookTable } from "../components/LibraryTable.js";
+import { resetForm, fillForm } from "../components/LibraryForm.js";
 
 import { setState, getState } from "../state/store.js";
 import { $, createElement } from "../utils/dom.js";

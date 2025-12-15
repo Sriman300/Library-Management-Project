@@ -1,5 +1,3 @@
-// frontend/assets/js/router.js
-
 import { initBookController } from "/frontend/assets/js/controllers/bookController.js";
 
 // Load a view into #app container
@@ -19,10 +17,7 @@ export async function router() {
     await loadView("/frontend/pages/books.html");
     initBookController();
   }
-  else if (path === "/members") {
-    await loadView("/frontend/pages/members.html");
-    // initMemberController(); // Future implementation
-  }
+
   else {
     await loadView("/frontend/pages/404.html");
   }

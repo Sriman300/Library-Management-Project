@@ -1,5 +1,5 @@
 import { $ } from "../utils/dom.js";
-import { editBook, deleteBookAction } from "../controllers/libraryController.js";
+import { editBook, deleteBookAction } from "../controllers/bookController.js";
 
 // Renders the list of books into an HTML table
 export function renderBookTable(books) {
@@ -35,4 +35,26 @@ export function renderBookTable(books) {
       <td class="px-3 py-2">${book.category || ""}</td>
       <td class="px-3 py-2">${book.available_copies ?? 0} / ${book.total_copies ?? 0}</td>
       <td class="px-3 py-2 flex space-x-2">
-        <!-- Buttons are created with data attributes
+        <!-- Buttons are created with data attributes holding the student ID -->
+        <button class="bg-yellow-400 hover:bg-yellow-500 text-black py-1 px-3 rounded"
+          data-edit="${student.id}">Edit</button>
+
+        <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+          data-delete="${student.id}">Delete</button>
+      </td>
+    `;
+
+    // --- Attach event listeners to the newly created buttons ---
+
+    // Find the 'Edit' button within this specific row and attach a click handler
+    // When clicked, call the editStudent function with the correct student ID
+    row.querySelector("[data-edit]").onclick = () => editStudent(student.id);
+    
+    // Find the 'Delete' button within this specific row and attach a click handler
+    // When clicked, call the deleteStudentAction function with the correct student ID
+    // row.querySelector("[data-delete]").onclick = () => deleteStudentAction(student.id);
+
+    // Append the fully constructed row to the table body
+    body.appendChild(row);
+  });
+}
