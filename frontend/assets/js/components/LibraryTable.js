@@ -1,0 +1,38 @@
+import { $ } from "../utils/dom.js";
+import { editBook, deleteBookAction } from "../controllers/libraryController.js";
+
+// Renders the list of books into an HTML table
+export function renderBookTable(books) {
+  // Get references to the table body where rows will be inserted and the 'no books' message [web:37]
+  const body = $("booksTableBody");
+  const noBooks = $("noBooks");
+
+  // Clear any existing rows from the table body before rendering new data
+  body.innerHTML = "";
+
+  // Check if the book array is empty
+  if (books.length === 0) {
+    // If no books are found, display the 'no books' message and stop execution [web:31]
+    noBooks.style.display = "block";
+    return;
+  }
+
+  // If books exist, hide the 'no books' message
+  noBooks.style.display = "none";
+
+  // Iterate over each book object in the provided array
+  books.forEach(book => {
+    // Create a new table row element for the current book
+    const row = document.createElement("tr");
+    row.className = "border-b"; // Add styling class (e.g., Tailwind CSS) [web:16]
+
+    // Populate the row with dynamic HTML content using a template literal [web:24]
+    row.innerHTML = `
+      <td class="px-3 py-2">${book.id}</td>
+      <td class="px-3 py-2">${book.title}</td>
+      <td class="px-3 py-2">${book.author}</td>
+      <td class="px-3 py-2">${book.isbn || ""}</td>
+      <td class="px-3 py-2">${book.category || ""}</td>
+      <td class="px-3 py-2">${book.available_copies ?? 0} / ${book.total_copies ?? 0}</td>
+      <td class="px-3 py-2 flex space-x-2">
+        <!-- Buttons are created with data attributes
