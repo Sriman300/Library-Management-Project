@@ -14,7 +14,7 @@ export async function router() {
     await loadView("/frontend/pages/home.html");
   }
   else if (path === "/books") {
-    await loadView("/frontend/pages/books.html");
+    await loadView("/frontend/pages/library.html");
     initBookController();
   }
 
