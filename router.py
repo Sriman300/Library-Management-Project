@@ -1,15 +1,13 @@
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse
-
-# Controllers
 from controllers.books import (
     get_all_books, get_book, create_book, update_book, delete_book,
 )
-from controllers.librarians import (
+from controllers.books import (
     get_all_librarians, get_librarian, create_librarian, update_librarian, delete_librarian,
 )
-from controllers.bookshelves import (
+from controllers.books import (
     get_all_bookshelves, get_bookshelf, create_bookshelf, update_bookshelf, delete_bookshelf,
 )
 

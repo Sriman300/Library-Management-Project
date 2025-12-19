@@ -1,3 +1,5 @@
+# database/connection.py
+
 import sqlite3
 
 DB_FILE = "library.db"
@@ -9,6 +11,10 @@ def get_connection():
 
 def init_database():
     conn = get_connection()
+    
+    # ================================
+    # BOOKS TABLE
+    # ================================
     conn.execute("""
         CREATE TABLE IF NOT EXISTS books (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,6 +29,33 @@ def init_database():
             updated_at TEXT
         )
     """)
-    conn.commit()
-    conn.close()
-    print("✓ Library database initialized")
+    
+    # ================================
+    # LIBRARIANS TABLE
+    # ================================
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS librarians (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            role TEXT NOT NULL,
+            phone TEXT,
+            hire_date TEXT,
+            salary REAL DEFAULT 0,
+            created_at TEXT,
+            updated_at TEXT
+        )
+    """)
+    
+    # ================================
+    # BOOKSHELVES TABLE
+    # ================================
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS bookshelves (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            zone TEXT NOT NULL,
+            capacity INTEGER DEFAULT 50,
+            current_count INTEGER
+    )
+    """)

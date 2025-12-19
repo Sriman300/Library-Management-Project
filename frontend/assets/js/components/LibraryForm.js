@@ -1,31 +1,68 @@
+// components/LibraryForm.js
 import { $, createElement } from "../utils/dom.js";
 
-// Resets the input form to its default state for creating a new book
-export function resetForm() {
-  // Use the native .reset() method on the HTML form element [web:15]
+// ================================
+// BOOKS FORM HANDLERS
+// ================================
+export function resetBookForm() {
   $("bookForm").reset();
-
-  // Change the submit button text back to "Add Book"
-  $("submitBtn").textContent = "Add Book";
-
-  // Hide the "Cancel" button, as we are no longer in 'edit' mode
-  $("cancelBtn").style.display = "none";
+  $("bookSubmitBtn").textContent = "Add Book";
+  $("bookCancelBtn").style.display = "none";
 }
 
-// Populates the input form fields with data from a selected book object (for editing)
-export function fillForm(book) {
-  // Fill each input field with the corresponding property from the book data [web:3]
-  $("title").value = book.title;
-  $("author").value = book.author;
-  $("isbn").value = book.isbn || "";
-  $("category").value = book.category || "";
-  $("total_copies").value = book.total_copies ?? 1;
-  $("available_copies").value = book.available_copies ?? 1;
-  $("published_year").value = book.published_year || "";
-
-  // Change the submit button text to "Update Book"
-  $("submitBtn").textContent = "Update Book";
-
-  // Show the "Cancel" button, allowing the user to exit 'edit' mode
-  $("cancelBtn").style.display = "block";
+export function fillBookForm(book) {
+  $("bookTitle").value = book.title || "";
+  $("bookAuthor").value = book.author || "";
+  $("bookIsbn").value = book.isbn || "";
+  $("bookCategory").value = book.category || "";
+  $("bookTotalCopies").value = book.total_copies ?? 1;
+  $("bookAvailableCopies").value = book.available_copies ?? 1;
+  $("bookPublishedYear").value = book.published_year || "";
+  
+  $("bookSubmitBtn").textContent = "Update Book";
+  $("bookCancelBtn").style.display = "block";
 }
+
+// ================================
+// LIBRARIAN FORM HANDLERS
+// ================================
+export function resetLibrarianForm() {
+  $("librarianForm").reset();
+  $("librarianSubmitBtn").textContent = "Add Librarian";
+  $("librarianCancelBtn").style.display = "none";
+}
+
+export function fillLibrarianForm(librarian) {
+  $("librarianName").value = librarian.name || "";
+  $("librarianEmail").value = librarian.email || "";
+  $("librarianRole").value = librarian.role || "";
+  $("librarianPhone").value = librarian.phone || "";
+  $("librarianHireDate").value = librarian.hire_date || "";
+  $("librarianSalary").value = librarian.salary ?? 0;
+  
+  $("librarianSubmitBtn").textContent = "Update Librarian";
+  $("librarianCancelBtn").style.display = "block";
+}
+
+// ================================
+// BOOKSHELF FORM HANDLERS
+// ================================
+export function resetBookshelfForm() {
+  $("bookshelfForm").reset();
+  $("bookshelfSubmitBtn").textContent = "Add Bookshelf";
+  $("bookshelfCancelBtn").style.display = "none";
+}
+
+export function fillBookshelfForm(bookshelf) {
+  $("bookshelfName").value = bookshelf.name || "";
+  $("bookshelfZone").value = bookshelf.zone || "";
+  $("bookshelfCapacity").value = bookshelf.capacity ?? 50;
+  $("bookshelfCurrentCount").value = bookshelf.current_count ?? 0;
+  $("bookshelfLocation").value = bookshelf.location || "";
+  
+  $("bookshelfSubmitBtn").textContent = "Update Bookshelf";
+  $("bookshelfCancelBtn").style.display = "block";
+}
+
+// ================================
+// UNIVERS

@@ -1,30 +1,213 @@
 // controllers/bookController.js
-
-import { 
-    apiGetAll, 
-    apiGetOne, 
-    apiCreate, 
-    apiUpdate, 
-    apiDelete 
-} from "../services/bookService.js";
-
+import { bookService } from "../services/libraryServices.js";
 import { showAlert } from "../components/Alert.js";
 import { renderBookTable } from "../components/LibraryTable.js";
 import { resetForm, fillForm } from "../components/LibraryForm.js";
-
-import { setState, getState } from "../state/store.js";
+import { setState, getState, setEditingBook } from "../state/store.js";
 import { $, createElement } from "../utils/dom.js";
 
-// Setup event listeners and load initial data
 export function initBookController() {
-  // Start by fetching and displaying all book data immediately upon load
   loadBooks();
 
-  // --- Handle Form Submissions ---
   $("bookForm").addEventListener("submit", async (e) => {
     e.preventDefault();
+    const data = getFormData("book");
+    const { editingBookId } = getState();
+    
+    editingBookId
+      ? await updateBook(editingBookId, data)
+      : await createNewBook(data);
+  });
 
-    const data = {
+  $("cancelBtn").addEventListener("click", () => {
+    setEditingBook(null);
+    resetForm("book");
+  });
+}
+
+export async function loadBooks() {
+  showLoading(true);
+  const books = await bookService.getAll();
+  setState({ books });
+  renderBookTable(books, "books");
+  showLoading(false);
+}
+
+export async function createNewBook(data) {
+  const res = await bookService.create(data);
+  if (res.ok) {
+    showAlert("Book added successfully!");
+    resetForm("book");
+    loadBooks();
+  }
+}
+
+export async function editBook(id) {
+  const book = await bookService.getOne(id);
+  setEditingBook(id);
+  fillForm(book, "book");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+export async function updateBook(id, data) {
+  const res = await bookService.update(id, data);
+  if (res.ok) {
+    showAlert("Book updated successfully!");
+    resetForm("book");
+    setEditingBook(null);
+    loadBooks();
+  }
+}
+
+export async function deleteBook(id) {
+  if (!confirm("Delete this book permanently?")) return;
+  const res = await bookService.delete(id);
+  if (res.ok) {
+    showAlert("Book deleted successfully!");
+    loadBooks();
+  }
+}
+
+// ================================
+// controllers/librarianController.js
+// ================================
+import { librarianService } from "../services/libraryServices.js";
+
+export function initLibrarianController() {
+  loadLibrarians();
+
+  $("librarianForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = getFormData("librarian");
+    const { editingLibrarianId } = getState();
+    
+    editingLibrarianId
+      ? await updateLibrarian(editingLibrarianId, data)
+      : await createNewLibrarian(data);
+  });
+
+  $("cancelBtn").addEventListener("click", () => {
+    setEditingLibrarian(null);
+    resetForm("librarian");
+  });
+}
+
+export async function loadLibrarians() {
+  showLoading(true);
+  const librarians = await librarianService.getAll();
+  setState({ librarians });
+  renderBookTable(librarians, "librarians");
+  showLoading(false);
+}
+
+export async function createNewLibrarian(data) {
+  const res = await librarianService.create(data);
+  if (res.ok) {
+    showAlert("Librarian added successfully!");
+    resetForm("librarian");
+    loadLibrarians();
+  }
+}
+
+export async function editLibrarian(id) {
+  const librarian = await librarianService.getOne(id);
+  setEditingLibrarian(id);
+  fillForm(librarian, "librarian");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+export async function updateLibrarian(id, data) {
+  const res = await librarianService.update(id, data);
+  if (res.ok) {
+    showAlert("Librarian updated successfully!");
+    resetForm("librarian");
+    setEditingLibrarian(null);
+    loadLibrarians();
+  }
+}
+
+export async function deleteLibrarian(id) {
+  if (!confirm("Delete this librarian permanently?")) return;
+  const res = await librarianService.delete(id);
+  if (res.ok) {
+    showAlert("Librarian deleted successfully!");
+    loadLibrarians();
+  }
+}
+
+// ================================
+// controllers/bookshelfController.js
+// ================================
+import { bookshelfService } from "../services/libraryServices.js";
+
+export function initBookshelfController() {
+  loadBookshelves();
+
+  $("bookshelfForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = getFormData("bookshelf");
+    const { editingBookshelfId } = getState();
+    
+    editingBookshelfId
+      ? await updateBookshelf(editingBookshelfId, data)
+      : await createNewBookshelf(data);
+  });
+
+  $("cancelBtn").addEventListener("click", () => {
+    setEditingBookshelf(null);
+    resetForm("bookshelf");
+  });
+}
+
+export async function loadBookshelves() {
+  showLoading(true);
+  const bookshelves = await bookshelfService.getAll();
+  setState({ bookshelves });
+  renderBookTable(bookshelves, "bookshelves");
+  showLoading(false);
+}
+
+export async function createNewBookshelf(data) {
+  const res = await bookshelfService.create(data);
+  if (res.ok) {
+    showAlert("Bookshelf added successfully!");
+    resetForm("bookshelf");
+    loadBookshelves();
+  }
+}
+
+export async function editBookshelf(id) {
+  const bookshelf = await bookshelfService.getOne(id);
+  setEditingBookshelf(id);
+  fillForm(bookshelf, "bookshelf");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+export async function updateBookshelf(id, data) {
+  const res = await bookshelfService.update(id, data);
+  if (res.ok) {
+    showAlert("Bookshelf updated successfully!");
+    resetForm("bookshelf");
+    setEditingBookshelf(null);
+    loadBookshelves();
+  }
+}
+
+export async function deleteBookshelf(id) {
+  if (!confirm("Delete this bookshelf permanently?")) return;
+  const res = await bookshelfService.delete(id);
+  if (res.ok) {
+    showAlert("Bookshelf deleted successfully!");
+    loadBookshelves();
+  }
+}
+
+// ================================
+// SHARED UTILITIES
+// ================================
+function getFormData(type) {
+  return {
+    book: {
       title: $("title").value.trim(),
       author: $("author").value.trim(),
       isbn: $("isbn").value.trim() || null,
@@ -32,77 +215,33 @@ export function initBookController() {
       total_copies: parseInt($("total_copies").value) || 1,
       available_copies: parseInt($("available_copies").value) || 1,
       published_year: $("published_year").value.trim() || null
-    };
-
-    const { editingId } = getState();
-
-    editingId
-      ? await updateBook(editingId, data)
-      : await createNewBook(data);
-  });
-
-  // --- Handle Cancel Button Click ---
-  $("cancelBtn").addEventListener("click", () => {
-    setState({ editingId: null });
-    resetForm();
-  });
+    },
+    librarian: {
+      name: $("name").value.trim(),
+      email: $("email").value.trim(),
+      role: $("role").value.trim(),
+      phone: $("phone").value.trim() || null,
+      hire_date: $("hire_date").value || null,
+      salary: parseFloat($("salary").value) || 0
+    },
+    bookshelf: {
+      name: $("shelf_name").value.trim(),
+      zone: $("zone").value.trim(),
+      capacity: parseInt($("capacity").value) || 50,
+      current_count: parseInt($("current_count").value) || 0,
+      location: $("location").value.trim() || null
+    }
+  }[type];
 }
 
-// Fetch all book data from the API and update the user interface
-export async function loadBooks() {
+function showLoading(show) {
   const spinner = $("loadingSpinner");
-  const table = $("booksTableContainer");
-
-  spinner.style.display = "block";
-  table.style.display = "none";
-
-  const books = await apiGetAll();
-
-  setState({ books });
-  renderBookTable(books);
-
-  spinner.style.display = "none";
-  table.style.display = "block";
-}
-
-// Create a new book
-export async function createNewBook(data) {
-  const res = await apiCreate(data);
-  if (res.ok) {
-    showAlert("Book added!");
-    resetForm();
-    loadBooks();
-  }
-}
-
-// Load a book into the form for editing
-export async function editBook(id) {
-  const book = await apiGetOne(id);
-
-  setState({ editingId: id });
-  fillForm(book);
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-// Update an existing book
-export async function updateBook(id, data) {
-  const res = await apiUpdate(id, data);
-  if (res.ok) {
-    showAlert("Book updated!");
-    resetForm();
-    setState({ editingId: null });
-    loadBooks();
-  }
-}
-
-// Delete a book
-export async function deleteBookAction(id) {
-  if (!confirm("Delete this book?")) return;
-
-  const res = await apiDelete(id);
-  if (res.ok) {
-    showAlert("Book deleted!");
-    loadBooks();
+  const table = $("tableContainer");
+  if (show) {
+    spinner.style.display = "block";
+    table.style.display = "none";
+  } else {
+    spinner.style.display = "none";
+    table.style.display = "block";
   }
 }

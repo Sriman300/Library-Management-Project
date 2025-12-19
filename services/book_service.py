@@ -1,9 +1,19 @@
 from database.queries import (
-    db_get_all,
-    db_get_one,
-    db_create,
-    db_update,
-    db_delete,
+    db_get_all_books,
+    db_get_one_book,
+    db_create_book,
+    db_update_book,
+    db_delete_book,
+    db_get_all_librarians,
+    db_get_one_librarian,
+    db_create_librarian,
+    db_update_librarian,
+    db_delete_librarian,
+    db_get_all_bookshelves,
+    db_get_one_bookshelf,
+    db_create_bookshelf,
+    db_update_bookshelf,
+    db_delete_bookshelf,
 )
 
 # -------------------------------

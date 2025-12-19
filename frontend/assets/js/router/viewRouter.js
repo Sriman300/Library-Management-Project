@@ -1,4 +1,6 @@
 import { initBookController } from "/frontend/assets/js/controllers/bookController.js";
+import { initLibrarianController } from "/frontend/assets/js/controllers/librarianController.js";
+import { initBookshelfController } from "/frontend/assets/js/controllers/bookshelfController.js";
 
 // Load a view into #app container
 async function loadView(path) {
@@ -10,14 +12,31 @@ async function loadView(path) {
 export async function router() {
   const path = window.location.pathname;
 
-  if (path === "/" || path === "/home") {
+  // Home routes
+  if (path === "/" || path === "/home" || path === "/index.html") {
     await loadView("/frontend/pages/home.html");
   }
+  // Books Management
   else if (path === "/books") {
-    await loadView("/frontend/pages/library.html");
+    await loadView("/frontend/pages/books.html");
     initBookController();
   }
-
+  // Librarians Management
+  else if (path === "/librarians") {
+    await loadView("/frontend/pages/librarians.html");
+    initLibrarianController();
+  }
+  // Bookshelves Management
+  else if (path === "/bookshelves") {
+    await loadView("/frontend/pages/bookshelves.html");
+    initBookshelfController();
+  }
+  // API routes (open in new tab, no controller needed)
+  else if (path.startsWith("/api/")) {
+    // API calls handled by services, no view needed
+    return;
+  }
+  // 404
   else {
     await loadView("/frontend/pages/404.html");
   }
@@ -35,4 +54,10 @@ export function initRouterEvents() {
 
   // Back/forward buttons support
   window.addEventListener("popstate", router);
+}
+
+// Initialize router on page load
+export function initRouter() {
+  initRouterEvents();
+  router(); // Load initial route
 }
