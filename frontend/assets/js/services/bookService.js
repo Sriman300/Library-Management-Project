@@ -13,21 +13,21 @@ async function safeJson(res) {
 
 // Fetch all books
 export async function apiGetAll() {
-  const res = await fetch(`${API_URL}/library`);
+  const res = await fetch(API_URL);
   if (!res.ok) return [];
   return safeJson(res);
 }
 
 // Fetch one book by ID
 export async function apiGetOne(id) {
-  const res = await fetch(`${API_URL}/library/${id}`);
+  const res = await fetch(`${API_URL}/${id}`);
   if (!res.ok) return null;
   return safeJson(res);
 }
 
 // Create a new book
 export function apiCreate(data) {
-  return fetch(`${API_URL}/library`, {
+  return fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -36,7 +36,7 @@ export function apiCreate(data) {
 
 // Update a book
 export function apiUpdate(id, data) {
-  return fetch(`${API_URL}/library/${id}`, {
+  return fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
