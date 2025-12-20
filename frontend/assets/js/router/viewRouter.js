@@ -1,6 +1,6 @@
 import { initBookController } from "/frontend/assets/js/controllers/bookController.js";
-import { initLibrarianController } from "/frontend/assets/js/controllers/librarianController.js";
-import { initBookshelfController } from "/frontend/assets/js/controllers/bookshelfController.js";
+import { initLibrarianController } from "/frontend/assets/js/controllers/bookController.js";
+import { initBookshelfController } from "/frontend/assets/js/controllers/bookController.js";
 
 // Load a view into #app container
 async function loadView(path) {

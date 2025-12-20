@@ -1,6 +1,6 @@
 // components/LibraryTable.js
 import { $, getState } from "../state/store.js";
-import { editBook, deleteBook, editLibrarian, deleteLibrarian, editBookshelf, deleteBookshelf } from "../controllers/libraryControllers.js";
+import { editBook, deleteBook, editLibrarian, deleteLibrarian, editBookshelf, deleteBookshelf } from "../controllers/bookController.js";
 
 // ================================
 // BOOKS TABLE RENDERER
