@@ -1,0 +1,55 @@
+<div class="max-w-6xl mx-auto p-6">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-3xl font-bold">Library Management System</h1>
+    <div class="flex space-x-4">
+      <a href="/bookshelves" data-link class="text-sm font-semibold text-blue-600 border-b-2 border-blue-600">Books</a>
+       <a href="/home" data-link class="text-sm text-blue-600 underline">← Home</a>
+    </div>
+  </div>
+  <!-- Bookshelves Management -->
+  <div id="bookshelvesSection" class="bg-white p-5 rounded shadow mb-8 hidden">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="font-semibold text-xl">📦 Bookshelves Management</h2>
+      <button onclick="showSection('bookshelves')" class="text-blue-600 underline">Manage Bookshelves</button>
+    </div>
+    
+    <!-- Bookshelves Form -->
+    <form id="bookshelvesForm" class="space-y-3 mb-6 hidden">
+      <input type="text" id="bookshelfName" placeholder="Bookshelf Name" required class="w-full border rounded px-3 py-2">
+      <input type="text" id="bookshelfLocation" placeholder="Location" class="w-full border rounded px-3 py-2">
+      <input type="number" id="bookshelfCapacity" placeholder="Capacity" min="1" class="w-full border rounded px-3 py-2">
+      <input type="number" id="bookshelfCurrentCount" placeholder="Current Count" min="0" class="w-full border rounded px-3 py-2">
+      
+      <div class="flex space-x-2">
+        <button type="submit" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded">Add Bookshelf</button>
+        <button type="button" id="cancelBookshelfBtn" class="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded hidden">Cancel</button>
+      </div>
+    </form>
+
+    <!-- Bookshelves Table -->
+    <div id="bookshelvesTableContainer" class="overflow-x-auto hidden">
+      <table class="min-w-full text-left border">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="px-3 py-2">ID</th>
+            <th class="px-3 py-2">Name</th>
+            <th class="px-3 py-2">Location</th>
+            <th class="px-3 py-2">Capacity</th>
+            <th class="px-3 py-2">Current</th>
+            <th class="px-3 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bookshelvesTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div id="loadingSpinner" class="text-center py-4 hidden">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+  </div>
+
+  <!-- Alert container -->
+  <div id="alertContainer" class="fixed top-4 right-4 space-y-2 z-50"></div>
+</div>
+

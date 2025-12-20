@@ -38,9 +38,6 @@ def handle_ui_routes(handler, path):
         serve_static(handler, path.lstrip("/"))
         return True
 
-    if path == "/openapi.yaml":
-        serve_static(handler, "openapi.yaml")
-        return True
 
     return False
 

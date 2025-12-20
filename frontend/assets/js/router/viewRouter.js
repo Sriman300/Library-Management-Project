@@ -1,6 +1,7 @@
 import { initBookController } from "/frontend/assets/js/controllers/bookController.js";
-import { initLibrarianController } from "/frontend/assets/js/controllers/bookController.js";
-import { initBookshelfController } from "/frontend/assets/js/controllers/bookController.js";
+// import { initBookshelfController } from "/frontend/assets/js/controllers/bookshelfController.js";
+// import { initLibrarianController } from "/frontend/assets/js/controllers/librarianController.js";
+
 
 // Load a view into #app container
 async function loadView(path) {
@@ -16,21 +17,25 @@ export async function router() {
   if (path === "/" || path === "/home" || path === "/index.html") {
     await loadView("/frontend/pages/home.html");
   }
+  
   // Books Management
   else if (path === "/books") {
     await loadView("/frontend/pages/books.html");
     initBookController();
   }
+
   // Librarians Management
-  else if (path === "/librarians") {
-    await loadView("/frontend/pages/librarians.html");
-    initLibrarianController();
-  }
+  // else if (path === "/librarians") {
+  //   await loadView("/frontend/pages/librarians.html");
+  //   initLibrarianController();
+  // }
+
   // Bookshelves Management
-  else if (path === "/bookshelves") {
-    await loadView("/frontend/pages/bookshelves.html");
-    initBookshelfController();
-  }
+  // else if (path === "/bookshelves") {
+  //   await loadView("/frontend/pages/bookshelves.html");
+  //   initBookshelfController();
+  // }
+
   // API routes (open in new tab, no controller needed)
   else if (path.startsWith("/api/")) {
     // API calls handled by services, no view needed

@@ -10,42 +10,40 @@ async function safeJson(res) {
     return null;
   }
 }
-
 // ================================
-// BOOKS SERVICE
+// LIBRARIANS SERVICE
 // ================================
-export const bookService = {
-  // Fetch all books
+export const librarianService = {
+  // Fetch all librarians
   getAll: async () => {
-    const res = await fetch(`${API_BASE_URL}/books`);
+    const res = await fetch(`${API_BASE_URL}/librarians`);
     if (!res.ok) return [];
     return safeJson(res);
   },
 
-  // Fetch one book by ID
+  // Fetch one librarian by ID
   getOne: async (id) => {
-    const res = await fetch(`${API_BASE_URL}/books/${id}`);
+    const res = await fetch(`${API_BASE_URL}/librarians/${id}`);
     if (!res.ok) return null;
     return safeJson(res);
   },
 
-  // Create a new book
-  create: (data) => fetch(`${API_BASE_URL}/books`, {
+  // Create a new librarian
+  create: (data) => fetch(`${API_BASE_URL}/librarians`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   }),
 
-  // Update a book
-  update: (id, data) => fetch(`${API_BASE_URL}/books/${id}`, {
+  // Update a librarian
+  update: (id, data) => fetch(`${API_BASE_URL}/librarians/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   }),
 
-  // Delete a book
-  delete: (id) => fetch(`${API_BASE_URL}/books/${id}`, {
+  // Delete a librarian
+  delete: (id) => fetch(`${API_BASE_URL}/librarians/${id}`, {
     method: "DELETE"
   })
 };
-

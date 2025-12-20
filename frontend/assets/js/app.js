@@ -1,8 +1,12 @@
-import { initLibraryController } from "./controllers/libraryController.js";
+import { initLibrarianController } from "./controllers/librarianController.js";
+import { initBookshelfController } from "./controllers/bookshelfController.js";
+import { initBookController } from "./controllers/bookController.js";
 import { router } from "./router/viewRouter.js";
+
 window.addEventListener("DOMContentLoaded", () => {
   router();
-  initStudentController();
-
+  initLibrarianController();
+  initBookshelfController();
+  initBookController();
 
 });
