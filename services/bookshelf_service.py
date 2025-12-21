@@ -1,4 +1,4 @@
-from database.queries import (
+from database.bookshelf_queries import (
     db_get_all_bookshelves,
     db_get_one_bookshelf,
     db_create_bookshelf,

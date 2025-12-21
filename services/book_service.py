@@ -1,4 +1,4 @@
-from database.queries import (
+from database.book_queries import (
     db_get_all_books,
     db_get_one_book,
     db_create_book,

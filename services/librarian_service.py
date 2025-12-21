@@ -1,4 +1,4 @@
-from database.queries import (
+from database.librarian_queries import (
      db_get_all_librarians,
     db_get_one_librarian,
     db_create_librarian,

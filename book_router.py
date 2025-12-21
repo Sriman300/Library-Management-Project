@@ -4,13 +4,6 @@ from urllib.parse import urlparse
 from controllers.books import (
     get_all_books, get_book, create_book, update_book, delete_book,
 )
-from controllers.books import (
-    get_all_librarians, get_librarian, create_librarian, update_librarian, delete_librarian,
-)
-from controllers.books import (
-    get_all_bookshelves, get_bookshelf, create_bookshelf, update_bookshelf, delete_bookshelf,
-)
-
 from core.static import serve_static
 from core.responses import send_404
 from core.middleware import add_cors_headers
@@ -44,7 +37,7 @@ def handle_ui_routes(handler, path):
 # -------------------------------
 # MAIN ROUTER CLASS
 # -------------------------------
-class LibraryRouter(BaseHTTPRequestHandler):
+class BookRouter(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
         self.send_response(200)
@@ -69,21 +62,6 @@ class LibraryRouter(BaseHTTPRequestHandler):
             book_id = int(path.split("/")[-1])
             return get_book(self, book_id)
 
-        # 4. API READ routes - Librarians
-        if path == "/api/librarians":
-            return get_all_librarians(self)
-
-        if path.startswith("/api/librarians/"):
-            librarian_id = int(path.split("/")[-1])
-            return get_librarian(self, librarian_id)
-
-        # 5. API READ routes - Bookshelves
-        if path == "/api/bookshelves":
-            return get_all_bookshelves(self)
-
-        if path.startswith("/api/bookshelves/"):
-            bookshelf_id = int(path.split("/")[-1])
-            return get_bookshelf(self, bookshelf_id)
 
         return send_404(self)
 
@@ -93,10 +71,7 @@ class LibraryRouter(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/api/books":
             return create_book(self)
-        if self.path == "/api/librarians":
-            return create_librarian(self)
-        if self.path == "/api/bookshelves":
-            return create_bookshelf(self)
+
         return send_404(self)
 
     # ---------------------------
@@ -106,12 +81,7 @@ class LibraryRouter(BaseHTTPRequestHandler):
         if self.path.startswith("/api/books/"):
             book_id = int(self.path.split("/")[-1])
             return update_book(self, book_id)
-        if self.path.startswith("/api/librarians/"):
-            librarian_id = int(self.path.split("/")[-1])
-            return update_librarian(self, librarian_id)
-        if self.path.startswith("/api/bookshelves/"):
-            bookshelf_id = int(self.path.split("/")[-1])
-            return update_bookshelf(self, bookshelf_id)
+
         return send_404(self)
 
     # ---------------------------
@@ -121,12 +91,7 @@ class LibraryRouter(BaseHTTPRequestHandler):
         if self.path.startswith("/api/books/"):
             book_id = int(self.path.split("/")[-1])
             return delete_book(self, book_id)
-        if self.path.startswith("/api/librarians/"):
-            librarian_id = int(self.path.split("/")[-1])
-            return delete_librarian(self, librarian_id)
-        if self.path.startswith("/api/bookshelves/"):
-            bookshelf_id = int(self.path.split("/")[-1])
-            return delete_bookshelf(self, bookshelf_id)
+
         return send_404(self)
 
     def log_message(self, format, *args):
