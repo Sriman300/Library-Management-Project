@@ -2,13 +2,10 @@
 
 from http.server import HTTPServer
 from book_router import BookRouter
-from librarian_router import LibrarianRouter
-from bookshelf_router import BookshelfRouter
-from database.connection import init_database
-
+from database.book_connection import init_book_database
 def run_server():
-    init_database()
-    server = HTTPServer(("", 8000), BookRouter,LibrarianRouter,BookshelfRouter)
+    init_book_database()
+    server = HTTPServer(("", 8000), BookRouter)
     print("🚀 Server running at http://localhost:8000")
     server.serve_forever()
 

@@ -1,14 +1,17 @@
-window.ENV = {
-  APP_NAME: "Library Management System",
-  API_BASE_URL: "/api",
-  BOOKS_API: "/api/books",
-  LIBRARIANS_API: "/api/librarians", 
-  BOOKSHELVES_API: "/api/bookshelves"
-};// Global app state
-export let state = {
-  editingId: null, // which book is being edited
-  books: [],
-  bookshelf: [], // list of all bookshelves
-  librarians: [] // list of all librarians
+// For Books Management
+window.BOOKS_ENV = {
+  APP_NAME: "Books Management System",
+  API_BASE_URL: "/api/books"
 };
 
+// For Librarian Management
+window.LIBRARIAN_ENV = {
+  APP_NAME: "Librarian Management System",
+  API_BASE_URL: "/api/librarians"
+};
+
+// For Bookshelf Management
+window.BOOKSHELF_ENV = {
+  APP_NAME: "Bookshelf Management System",
+  API_BASE_URL: "/api/bookshelves"
+};

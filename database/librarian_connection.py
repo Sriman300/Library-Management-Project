@@ -7,7 +7,7 @@ def get_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-def init_database():
+def init_librarian_database():
     conn = get_connection()
     # ================================
     # LIBRARIANS TABLE

@@ -2,14 +2,14 @@
 
 import sqlite3
 
-DB_FILE = "library.db"
+DB_FILE = "book.db"
 
 def get_connection():
     conn = sqlite3.connect(DB_FILE)
     conn.row_factory = sqlite3.Row
     return conn
 
-def init_database():
+def init_book_database():
     conn = get_connection()
     
     # ================================
