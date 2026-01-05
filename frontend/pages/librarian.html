@@ -1,33 +1,49 @@
-<div class="max-w-6xl mx-auto p-6">
+<div class="max-w-3xl mx-auto p-6">
+
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-3xl font-bold">Library Management System</h1>
-    <div class="flex space-x-4">
-      <a href="/librarian" data-link class="text-sm font-semibold text-blue-600 border-b-2 border-blue-600">Books</a>
-          <a href="/home" data-link class="text-sm text-blue-600 underline">← Home</a>
-    </div>
+    <a href="/home" data-link class="text-sm text-yellow-600 underline">← Back to Home</a>
+
+    <a href="/books" data-link class="text-sm text-green-600 underline">Books</a>
+
+    <a href="/bookshelves" data-link class="text-sm text-pink-600 underline">Bookshelves</a>
+
+
   </div>
-  <!-- Librarians Management -->
-  <div id="librariansSection" class="bg-white p-5 rounded shadow mb-8 hidden">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="font-semibold text-xl">👨‍💼 Librarians Management</h2>
-      <button onclick="showSection('librarians')" class="text-blue-600 underline">Manage Librarians</button>
-    </div>
-    
-    <!-- Librarians Form -->
-    <form id="librariansForm" class="space-y-3 mb-6 hidden">
-      <input type="text" id="librarianName" placeholder="Full Name" required class="w-full border rounded px-3 py-2">
-      <input type="email" id="librarianEmail" placeholder="Email" required class="w-full border rounded px-3 py-2">
-      <input type="tel" id="librarianPhone" placeholder="Phone" class="w-full border rounded px-3 py-2">
-      <input type="text" id="librarianPosition" placeholder="Position" class="w-full border rounded px-3 py-2">
-      
+
+  <!-- Add / Edit Librarian Form -->
+  <div class="bg-white p-5 rounded shadow mb-8">
+    <h2 class="font-semibold mb-3 text-lg">Add New Librarian</h2>
+    <form id="librarianForm" class="space-y-3">
+      <input type="text" id="name" placeholder="Name" required class="w-full border rounded px-3 py-2">
+      <input type="email" id="email" placeholder="Email" required class="w-full border rounded px-3 py-2">
+      <input type="number" id="phone" placeholder="Phone" required class="w-full border rounded px-3 py-2">
+
       <div class="flex space-x-2">
-        <button type="submit" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded">Add Librarian</button>
-        <button type="button" id="cancelLibrarianBtn" class="flex-1 bg-gray-400 hover:bg-gray-500 text-white py-2 rounded hidden">Cancel</button>
+        <button type="submit" id="submitBtn"
+          class="flex-1 bg-yellow-500 hover:bg-orange-600 text-white py-2 rounded">
+          Add Librarian
+        </button>
+
+        <button type="button" id="cancelBtn"
+          class="flex-1 bg-gray-400 hover:bg-purple-500 text-white py-2 rounded hidden">
+          Cancel
+        </button>
       </div>
     </form>
+  </div>
 
-    <!-- Librarians Table -->
-    <div id="librariansTableContainer" class="overflow-x-auto hidden">
+  <!-- Librarian Table -->
+  <div class="bg-white p-5 rounded shadow">
+    <h2 class="font-semibold mb-4 text-lg">All Librarians</h2>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="text-center py-4">
+      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-yellow-500 mx-auto"></div>
+    </div>
+
+    <!-- Librarian Table Container -->
+    <div id="librariansTableContainer" class="hidden overflow-x-auto">
       <table class="min-w-full text-left border">
         <thead class="bg-gray-200">
           <tr>
@@ -35,20 +51,18 @@
             <th class="px-3 py-2">Name</th>
             <th class="px-3 py-2">Email</th>
             <th class="px-3 py-2">Phone</th>
-            <th class="px-3 py-2">Position</th>
             <th class="px-3 py-2">Actions</th>
           </tr>
         </thead>
         <tbody id="librariansTableBody"></tbody>
       </table>
+
+      <p id="noLibrarians" class="text-center text-gray-500 mt-3 hidden">
+        No Librarians found. Add one using the form above.
+      </p>
     </div>
-  </div>
-<!-- Loading Spinner -->
-  <div id="loadingSpinner" class="text-center py-4 hidden">
-    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
   </div>
 
   <!-- Alert container -->
   <div id="alertContainer" class="fixed top-4 right-4 space-y-2 z-50"></div>
 </div>
-

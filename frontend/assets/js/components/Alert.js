@@ -21,4 +21,5 @@ export function showAlert(message, type = "success") {
   container.appendChild(el);
   
   // Set a timer to automatically remove the alert element after 3000 milliseconds (3 seconds)
-  setTimeout(() =>
+  setTimeout(() => el.remove(), 3000);
+}
