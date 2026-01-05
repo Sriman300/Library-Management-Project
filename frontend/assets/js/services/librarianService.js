@@ -1,6 +1,5 @@
-// frontend/assets/js/services/libraryServices.js
-
-const API_BASE_URL = window.ENV?.API_BASE_URL || '/api';
+// Base API URL from env.js
+const API_URL = `${window.ENV.API_BASE_URL}/librarians`;
 
 // Helper: safely parse JSON or return null
 async function safeJson(res) {
@@ -10,40 +9,42 @@ async function safeJson(res) {
     return null;
   }
 }
-// ================================
-// LIBRARIANS SERVICE
-// ================================
-export const librarianService = {
-  // Fetch all librarians
-  getAll: async () => {
-    const res = await fetch(`${API_BASE_URL}/librarians`);
-    if (!res.ok) return [];
-    return safeJson(res);
-  },
 
-  // Fetch one librarian by ID
-  getOne: async (id) => {
-    const res = await fetch(`${API_BASE_URL}/librarians/${id}`);
-    if (!res.ok) return null;
-    return safeJson(res);
-  },
+// Fetch all Librarians
+export async function apiGetAllLibrarians() {
+  const res = await fetch(API_URL);
+  if (!res.ok) return [];
+  return safeJson(res);
+}
 
-  // Create a new librarian
-  create: (data) => fetch(`${API_BASE_URL}/librarians`, {
+// Fetch one Librarian by ID
+export async function apiGetOneLibrarian(id) {
+  const res = await fetch(`${API_URL}/${id}`);
+  if (!res.ok) return null;
+  return safeJson(res);
+}
+
+// Create a new Librarian
+export function apiCreateLibrarian(data) {
+  return fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
-  }),
+  });
+}
 
-  // Update a librarian
-  update: (id, data) => fetch(`${API_BASE_URL}/librarians/${id}`, {
+// Update a Librarian
+export function apiUpdateLibrarian(id, data) {
+  return fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
-  }),
+  });
+}
 
-  // Delete a librarian
-  delete: (id) => fetch(`${API_BASE_URL}/librarians/${id}`, {
-    method: "DELETE"
-  })
-};
+// Delete a Librarian
+export function apiDeleteLibrarian(id) {
+  return fetch(`${API_URL}/${id}`, { method: "DELETE" });
+}
+
+

@@ -1,6 +1,5 @@
-// frontend/assets/js/services/libraryServices.js
-
-const API_BASE_URL = window.ENV?.API_BASE_URL || '/api';
+// Base API URL from env.js
+const API_URL = `${window.ENV.API_BASE_URL}/bookshelves`;
 
 // Helper: safely parse JSON or return null
 async function safeJson(res) {
@@ -11,41 +10,39 @@ async function safeJson(res) {
   }
 }
 
-// ================================
-// BOOKSHELVES SERVICE
-// ================================
-export const bookshelfService = {
-  // Fetch all bookshelves
-  getAll: async () => {
-    const res = await fetch(`${API_BASE_URL}/bookshelves`);
-    if (!res.ok) return [];
-    return safeJson(res);
-  },
+// Fetch all Bookshelves
+export async function apiGetAllBookshelves() {
+  const res = await fetch(API_URL);
+  if (!res.ok) return [];
+  return safeJson(res);
+}
 
-  // Fetch one bookshelf by ID
-  getOne: async (id) => {
-    const res = await fetch(`${API_BASE_URL}/bookshelves/${id}`);
-    if (!res.ok) return null;
-    return safeJson(res);
-  },
+// Fetch one Bookshelf by ID
+export async function apiGetOneBookshelf(id) {
+  const res = await fetch(`${API_URL}/${id}`);
+  if (!res.ok) return null;
+  return safeJson(res);
+}
 
-  // Create a new bookshelf
-  create: (data) => fetch(`${API_BASE_URL}/bookshelves`, {
+// Create a new Bookshelf
+export function apiCreateBookshelf(data) {
+  return fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
-  }),
+  });
+}
 
-  // Update a bookshelf
-  update: (id, data) => fetch(`${API_BASE_URL}/bookshelves/${id}`, {
+// Update a Bookshelf
+export function apiUpdateBookshelf(id, data) {
+  return fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
-  }),
+  });
+}
 
-  // Delete a bookshelf
-  delete: (id) => fetch(`${API_BASE_URL}/bookshelves/${id}`, {
-    method: "DELETE"
-  })
-};
-
+// Delete a Bookshelf
+export function apiDeleteBookshelf(id) {
+  return fetch(`${API_URL}/${id}`, { method: "DELETE" });
+}

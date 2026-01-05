@@ -1,4 +1,4 @@
-# books/static.py
+# core/static.py
 import os
 import mimetypes
 from core.responses import send_404
@@ -12,7 +12,7 @@ def serve_static(handler, filepath):
 
     # File doesn't exist
     if not os.path.exists(full_path):
-        print("BOOKS STATIC ERROR: File not found:", full_path)
+        print("STATIC ERROR: File not found:", full_path)
         return send_404(handler)
 
     try:
@@ -35,60 +35,5 @@ def serve_static(handler, filepath):
         handler.wfile.write(content)
 
     except Exception as e:
-        print("BOOKS STATIC ERROR:", e)
-        return send_404(handler)
-
-        # File doesn't exist
-    if not os.path.exists(full_path):
-        print("LIBRARIAN STATIC ERROR: File not found:", full_path)
-        return send_404(handler)
-
-    try:
-        with open(full_path, "rb") as f:
-            content = f.read()
-
-        content_type, _ = mimetypes.guess_type(full_path)
-
-        # Force-correct HTML + YAML types
-        if full_path.endswith(".html"):
-            content_type = "text/html"
-        elif full_path.endswith(".yaml") or full_path.endswith(".yml"):
-            content_type = "text/yaml"
-        elif full_path.endswith(".js"):
-            content_type = "application/javascript"
-
-        handler.send_response(200)
-        handler.send_header("Content-Type", content_type or "application/octet-stream")
-        handler.end_headers()
-        handler.wfile.write(content)
-
-    except Exception as e:
-        print("LIBRARIAN STATIC ERROR:", e)
-        return send_404(handler)
-        # File doesn't exist
-    if not os.path.exists(full_path):
-        print("BOOKSHELVES STATIC ERROR: File not found:", full_path)
-        return send_404(handler)
-
-    try:
-        with open(full_path, "rb") as f:
-            content = f.read()
-
-        content_type, _ = mimetypes.guess_type(full_path)
-
-        # Force-correct HTML + YAML types
-        if full_path.endswith(".html"):
-            content_type = "text/html"
-        elif full_path.endswith(".yaml") or full_path.endswith(".yml"):
-            content_type = "text/yaml"
-        elif full_path.endswith(".js"):
-            content_type = "application/javascript"
-
-        handler.send_response(200)
-        handler.send_header("Content-Type", content_type or "application/octet-stream")
-        handler.end_headers()
-        handler.wfile.write(content)
-
-    except Exception as e:
-        print("BOOKSHELVES STATIC ERROR:", e)
+        print("STATIC ERROR:", e)
         return send_404(handler)

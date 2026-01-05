@@ -1,8 +1,6 @@
-import { initBookController } from "/frontend/assets/js/controllers/bookController.js";
-import { initBookshelfController } from "/frontend/assets/js/controllers/bookshelfController.js";
-import { initLibrarianController } from "/frontend/assets/js/controllers/librarianController.js";
-
-
+import { initBookController } from "../controllers/bookController.js";
+import { initLibrarianController } from "../controllers/librarianController.js";
+import { initBookshelfController } from "../controllers/bookshelfController.js";
 // Load a view into #app container
 async function loadView(path) {
   const html = await fetch(path).then(res => res.text());
@@ -13,38 +11,28 @@ async function loadView(path) {
 export async function router() {
   const path = window.location.pathname;
 
-  // Home routes
-  if (path === "/" || path === "/home" || path === "/index.html") {
+  if (path === "/" || path === "/home") {
     await loadView("/frontend/pages/home.html");
   }
-  
-  // Books Management
+
   else if (path === "/books") {
     await loadView("/frontend/pages/books.html");
     initBookController();
   }
 
-  // Librarians Management
-  else if (path === "/librarians") {
+    else if (path === "/librarians") {
     await loadView("/frontend/pages/librarian.html");
     initLibrarianController();
   }
 
-  // Bookshelves Management
-  else if (path === "/bookshelves") {
-    await loadView("/frontend/pages/bookshelf.html");
+    else if (path === "/bookshelves") {
+    await loadView("/frontend/pages/bookshelves.html");
     initBookshelfController();
   }
 
-  // API routes (open in new tab, no controller needed)
-  else if (path.startsWith("/api/")) {
-    // API calls handled by services, no view needed
-    return;
-  }
-  // 404
   else {
     await loadView("/frontend/pages/404.html");
-  }
+   }
 }
 
 // Make links work without page reload
@@ -61,8 +49,3 @@ export function initRouterEvents() {
   window.addEventListener("popstate", router);
 }
 
-// Initialize router on page load
-export function initRouter() {
-  initRouterEvents();
-  router(); // Load initial route
-}

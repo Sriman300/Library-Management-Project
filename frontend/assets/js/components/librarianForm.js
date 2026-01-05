@@ -1,22 +1,27 @@
-// components/LibraryForm.js
 import { $, createElement } from "../utils/dom.js";
-// ================================
-// LIBRARIAN FORM HANDLERS
-// ================================
-export function resetLibrarianForm() {
+
+// Resets the input form to its default state for creating a new librarian
+export function resetForm() {
+  // Use the native .reset() method on the HTML form element
   $("librarianForm").reset();
-  $("librarianSubmitBtn").textContent = "Add Librarian";
-  $("librarianCancelBtn").style.display = "none";
+
+  // Change the submit button text back to "Add librarian"
+  $("submitBtn").textContent = "Add Librarian";
+
+  // Hide the "Cancel" button, as we are no longer in 'edit' mode
+  $("cancelBtn").style.display = "none";
 }
 
-export function fillLibrarianForm(librarian) {
-  $("librarianName").value = librarian.name || "";
-  $("librarianEmail").value = librarian.email || "";
-  $("librarianRole").value = librarian.role || "";
-  $("librarianPhone").value = librarian.phone || "";
-  $("librarianHireDate").value = librarian.hire_date || "";
-  $("librarianSalary").value = librarian.salary ?? 0;
-  
-  $("librarianSubmitBtn").textContent = "Update Librarian";
-  $("librarianCancelBtn").style.display = "block";
+// Populates the input form fields with data from a selected librarian object (for editing)
+export function fillForm(librarian) {
+  // Fill each input field with the corresponding property from the librarian data
+  $("name").value = librarian.name;
+  $("email").value = librarian.email;
+  $("phone").value = librarian.phone;
+
+  // Change the submit button text to "Update librarian"
+  $("submitBtn").textContent = "Update Librarian";
+
+  // Show the "Cancel" button, allowing the user to exit 'edit' mode
+  $("cancelBtn").style.display = "inline-block";
 }
