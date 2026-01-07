@@ -19,7 +19,7 @@ import os
 
 class TestDatabaseBasics(unittest.TestCase):
 
-    def test_students_db_exists(self):
+    def test_library_db_exists(self):
         """
         Check that the database file is present in the project.
 
@@ -28,10 +28,10 @@ class TestDatabaseBasics(unittest.TestCase):
         - the test should fail immediately
         """
 
-        # Check: does 'students.db' file exist?
+        # Check: does 'library.db' file exist?
         self.assertTrue(
-            os.path.exists("students.db"),
-            "students.db file is missing"
+            os.path.exists("library.db"),
+            "library.db file is missing"
         )
 
     def test_can_connect_and_list_tables(self):
@@ -42,7 +42,7 @@ class TestDatabaseBasics(unittest.TestCase):
         """
 
         # Open a connection to the SQLite database
-        conn = sqlite3.connect("students.db")
+        conn = sqlite3.connect("library.db")
 
         # Create a cursor to run SQL queries
         cur = conn.cursor()
@@ -64,6 +64,6 @@ class TestDatabaseBasics(unittest.TestCase):
 
         # Check: expected table should exist
         self.assertIn(
-            "students",
+            "library",
             tables
         )
