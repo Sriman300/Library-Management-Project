@@ -24,6 +24,7 @@ from services.bookshelf_service import (
     , service_update_bookshelf
     , service_delete_bookshelf
 )
+
 def get_all_books(handler):
     return send_json(handler, 200, service_get_all_books())
 def get_all_librarians(handler):
@@ -41,6 +42,7 @@ def get_bookshelf(handler, bookshelf_id):
     bookshelf = service_get_one_bookshelf(bookshelf_id)
     return send_json(handler, 200, bookshelf) if bookshelf else send_404(handler)
 
+
 def create_book(handler):
     data = parse_json_body(handler)
     new_book = service_create_book(data)
@@ -53,6 +55,7 @@ def create_bookshelf(handler):
     data = parse_json_body(handler)
     new_bookshelf = service_create_bookshelf(data)
     return send_json(handler, 201, new_bookshelf)
+
 
 def update_book(handler, book_id):
     data = parse_json_body(handler)
