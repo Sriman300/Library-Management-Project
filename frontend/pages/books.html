@@ -2,25 +2,25 @@
 
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-3xl font-bold">Library Management System</h1>
-    <a href="/home" data-link class="text-sm text-green-600 underline">← Back to Home</a>
+    <a href="/home" data-link class="text-sm text-brown-600 underline">← Back to Home</a>
 
-    <a href="/librarians" data-link class="text-sm text-green-600 underline">Librarians-></a>
+    <a href="/librarians" data-link class="text-sm text-brown-600 underline">Librarians-></a>
 
-    <a href="/bookshelves" data-link class="text-sm text-green-600 underline">Bookshelves-></a>
+    <a href="/bookshelves" data-link class="text-sm text-brown-600 underline">Bookshelves-></a>
   </div>
 
   <!-- Add / Edit Book Form -->
   <div class="bg-white p-5 rounded shadow mb-8">
     <h2 class="font-semibold mb-3 text-lg">Add New Book</h2>
     <form id="bookForm" class="space-y-3">
-      <input type="text" id="title" placeholder="Title" requigreen class="w-full border rounded px-3 py-2">
-      <input type="text" id="author" placeholder="Author" requigreen class="w-full border rounded px-3 py-2">
-      <input type="text" id="isbn" placeholder="Isbn" requigreen class="w-full border rounded px-3 py-2">
-      <input type="text" id="shelf_id" placeholder="Shelf_id" requigreen class="w-full border rounded px-3 py-2">
+      <input type="text" id="title" placeholder="Title" requibrown class="w-full border rounded px-3 py-2">
+      <input type="text" id="author" placeholder="Author" requibrown class="w-full border rounded px-3 py-2">
+      <input type="text" id="isbn" placeholder="Isbn" requibrown class="w-full border rounded px-3 py-2">
+      <input type="text" id="shelf_id" placeholder="Shelf_id" requibrown class="w-full border rounded px-3 py-2">
 
       <div class="flex space-x-2">
         <button type="submit" id="submitBtn"
-          class="flex-1 bg-green-500 hover:bg-orange-600 text-white py-2 rounded">
+          class="flex-1 bg-brown-500 hover:bg-orange-600 text-white py-2 rounded">
           Add Book
         </button>
 
@@ -38,7 +38,7 @@
 
     <!-- Loading Spinner -->
     <div id="loadingSpinner" class="text-center py-4">
-      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-green-500 mx-auto"></div>
+      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-brown-500 mx-auto"></div>
     </div>
 
     <!-- Books Table Container -->

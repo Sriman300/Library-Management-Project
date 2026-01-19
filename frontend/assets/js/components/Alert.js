@@ -11,7 +11,7 @@ export function showAlert(message, type = "success") {
   // Apply CSS classes (likely Tailwind CSS) for styling based on the alert type
   el.className =
     `px-4 py-2 rounded shadow text-white ${ // Base styles
-      type === "success" ? "bg-green-500" : "bg-red-500" // Conditional background color
+      type === "success" ? "bg-brown-500" : "bg-red-500" // Conditional background color
     }`;
   
   // Set the actual text content of the alert element
