@@ -18,8 +18,8 @@ def db_create_bookshelf(data):
     conn = get_connection()
     now = datetime.now().isoformat()
     cur = conn.execute(
-        "INSERT INTO bookshelves (location, description, created_at) VALUES (?, ?, ?)",
-        (data["location"], data.get("description"), now)
+        "INSERT INTO bookshelves (location, description, book, created_at) VALUES (?, ?, ?, ?)",
+        (data["location"], data.get("description"), data.get("book"), now)
     )
     conn.commit()
     new_id = cur.lastrowid
@@ -30,8 +30,8 @@ def db_update_bookshelf(bookshelf_id, data):
     conn = get_connection()
     now = datetime.now().isoformat()
     conn.execute("""
-        UPDATE bookshelves SET location=?, description=?, updated_at=? WHERE id=?
-    """, (data["location"], data.get("description"), now, bookshelf_id))
+        UPDATE bookshelves SET location=?, description=?, book=?, updated_at=? WHERE id=?
+    """, (data["location"], data.get("description"), data.get("book"), now, bookshelf_id))
     conn.commit()
     conn.close()
     return db_get_one_bookshelf(bookshelf_id)

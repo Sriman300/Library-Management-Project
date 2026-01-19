@@ -19,6 +19,8 @@ export function fillForm(book) {
   $("author").value = book.author;
   $("isbn").value = book.isbn;
   $("shelf_id").value = book.shelf_id;
+  $("cost").value = book.cost;
+
 
   // Change the submit button text to "Update book"
   $("submitBtn").textContent = "Update Book";

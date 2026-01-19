@@ -1,6 +1,7 @@
 import { initBookController } from "../controllers/bookController.js";
 import { initLibrarianController } from "../controllers/librarianController.js";
 import { initBookshelfController } from "../controllers/bookshelfController.js";
+import { initStudentController } from "../controllers/studentController.js";
 // Load a view into #app container
 async function loadView(path) {
   const html = await fetch(path).then(res => res.text());
@@ -28,6 +29,10 @@ export async function router() {
     else if (path === "/bookshelves") {
     await loadView("/frontend/pages/bookshelves.html");
     initBookshelfController();
+  }
+    else if (path === "/students") {
+    await loadView("/frontend/pages/student.html");
+    initStudentController();
   }
 
   else {

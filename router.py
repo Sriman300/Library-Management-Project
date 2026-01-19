@@ -24,13 +24,20 @@ from controllers.library import (
     update_bookshelf,
     delete_bookshelf,
 )
+from controllers.library import (
+    get_all_students,
+    get_student,
+    create_student,
+    update_student,
+    delete_student,
+)
 
 from core.static import serve_static
 from core.responses import send_404
 from core.middleware import add_cors_headers
 
 
-FRONTEND_ROUTES = {"/", "/home", "/books","/librarians","/bookshelves", "/docs"}
+FRONTEND_ROUTES = {"/", "/home", "/books","/librarians","/bookshelves","/students" "/docs"}
 
 def handle_ui_routes(handler, path):
     if path in FRONTEND_ROUTES:
@@ -93,7 +100,14 @@ class LibraryRouter(BaseHTTPRequestHandler):
         if path.startswith("/api/bookshelves/"):
             bookshelf_id = int(path.split("/")[-1])
             return get_bookshelf(self, bookshelf_id)
+        
+        if path == "/api/students":
+            return get_all_students(self)
 
+        if path.startswith("/api/students/"):
+            student_id = int(path.split("/")[-1])
+            return get_student(self, student_id)
+        
         return send_404(self)
 
 
@@ -107,6 +121,8 @@ class LibraryRouter(BaseHTTPRequestHandler):
             return create_librarian(self)
         if self.path == "/api/bookshelves":
             return create_bookshelf(self)
+        if self.path == "/api/students":
+            return create_student(self)
         return send_404(self)
 
 
@@ -123,6 +139,9 @@ class LibraryRouter(BaseHTTPRequestHandler):
         if self.path.startswith("/api/bookshelves/"):
             bookshelf_id = int(self.path.split("/")[-1])
             return update_bookshelf(self, bookshelf_id)
+        if self.path.startswith("/api/students/"):
+            student_id = int(self.path.split("/")[-1])
+            return update_student(self, student_id)
         return send_404(self)
 
 
@@ -139,6 +158,9 @@ class LibraryRouter(BaseHTTPRequestHandler):
         if self.path.startswith("/api/bookshelves/"):
             bookshelf_id = int(self.path.split("/")[-1])
             return delete_bookshelf(self, bookshelf_id)
+        if self.path.startswith("/api/students/"):
+            student_id = int(self.path.split("/")[-1])
+            return delete_student(self, student_id)
         return send_404(self)
 
 

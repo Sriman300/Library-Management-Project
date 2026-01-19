@@ -24,7 +24,9 @@ export function initBookController() {
       title: $("title").value.trim(),
       author: $("author").value.trim(),
       isbn: $("isbn").value.trim(),
-      shelf_id: $("shelf_id").value.trim()
+      shelf_id: $("shelf_id").value.trim(),
+      cost: $("cost").value.trim(),
+      
     };
 
     const { editingId } = getState();

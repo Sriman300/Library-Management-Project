@@ -31,6 +31,7 @@ export function renderBookshelfTable(bookshelves) {
       <td class="px-3 py-2">${bookshelf.id}</td>
       <td class="px-3 py-2">${bookshelf.location}</td>
       <td class="px-3 py-2">${bookshelf.description}</td>
+      <td class="px-3 py-2">${bookshelf.book}</td>
       <td class="px-3 py-2 flex space-x-2">
         <!-- Buttons are created with data attributes holding the bookshelf ID -->
         <button class="bg-yellow-400 hover:bg-yellow-500 text-black py-1 px-3 rounded"

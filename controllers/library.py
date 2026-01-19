@@ -24,6 +24,14 @@ from services.bookshelf_service import (
     , service_update_bookshelf
     , service_delete_bookshelf
 )
+from services.student_service import (
+    service_get_all_students
+    , service_get_one_student
+    , service_create_student
+    , service_update_student
+    , service_delete_student
+)
+
 
 def get_all_books(handler):
     return send_json(handler, 200, service_get_all_books())
@@ -31,6 +39,8 @@ def get_all_librarians(handler):
     return send_json(handler, 200, service_get_all_librarians())
 def get_all_bookshelves(handler):
     return send_json(handler, 200, service_get_all_bookshelves())
+def get_all_students(handler):
+    return send_json(handler, 200, service_get_all_students())
 
 def get_book(handler, book_id):
     book = service_get_one_book(book_id)
@@ -41,7 +51,9 @@ def get_librarian(handler, librarian_id):
 def get_bookshelf(handler, bookshelf_id):
     bookshelf = service_get_one_bookshelf(bookshelf_id)
     return send_json(handler, 200, bookshelf) if bookshelf else send_404(handler)
-
+def get_student(handler, student_id):
+    student = service_get_one_student(student_id)
+    return send_json(handler, 200, student) if student else send_404(handler)
 
 def create_book(handler):
     data = parse_json_body(handler)
@@ -55,6 +67,11 @@ def create_bookshelf(handler):
     data = parse_json_body(handler)
     new_bookshelf = service_create_bookshelf(data)
     return send_json(handler, 201, new_bookshelf)
+def create_student(handler):
+    data = parse_json_body(handler)
+    new_student = service_create_student(data)
+    return send_json(handler, 201, new_student)
+
 
 
 def update_book(handler, book_id):
@@ -69,6 +86,10 @@ def update_bookshelf(handler, bookshelf_id):
     data = parse_json_body(handler)
     updated = service_update_bookshelf(bookshelf_id, data)
     return send_json(handler, 200, updated) if updated else send_404(handler)
+def update_student(handler, student_id):
+    data = parse_json_body(handler)
+    updated = service_update_student(student_id, data)
+    return send_json(handler, 200, updated) if updated else send_404(handler)
 
 def delete_book(handler, book_id):
     deleted = service_delete_book(book_id)
@@ -78,4 +99,7 @@ def delete_librarian(handler, librarian_id):
     return send_json(handler, 200, {"deleted": True}) if deleted else send_404(handler)
 def delete_bookshelf(handler, bookshelf_id):
     deleted = service_delete_bookshelf(bookshelf_id)
+    return send_json(handler, 200, {"deleted": True}) if deleted else send_404(handler)
+def delete_student(handler, student_id):
+    deleted = service_delete_student(student_id)
     return send_json(handler, 200, {"deleted": True}) if deleted else send_404(handler)

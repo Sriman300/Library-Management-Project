@@ -4,27 +4,26 @@
     <h1 class="text-3xl font-bold">Library Management System</h1>
     <a href="/home" data-link class="text-sm text-brown-600 underline">← Back to Home</a>
 
-    <a href="/librarians" data-link class="text-sm text-brown-600 underline"><-Librarians</a>
+    <a href="/books" data-link class="text-sm text-brown-600 underline"><-Books</a>
 
     <a href="/bookshelves" data-link class="text-sm text-brown-600 underline">Bookshelves-></a>
-    
-    <a href="/students" data-link class="text-sm text-brown-600 underline">Students-></a>
 
+    <a href="/librarians" data-link class="text-sm text-brown-600 underline">Librarians-></a>
   </div>
 
-  <!-- Add / Edit Librarian Form -->
+  <!-- Add / Edit Student Form -->
   <div class="bg-white p-5 rounded shadow mb-8">
-    <h2 class="font-semibold mb-3 text-lg">Add New Book</h2>
-    <form id="bookForm" class="space-y-3">
-      <input type="text" id="title" placeholder="Title" required class="w-full border rounded px-3 py-2">
-      <input type="text" id="author" placeholder="Author" required class="w-full border rounded px-3 py-2">
-      <input type="text" id="isbn" placeholder="ISBN" required class="w-full border rounded px-3 py-2">
-      <input type="number" id="shelf_id" placeholder="Shelf ID" required class="w-full border rounded px-3 py-2">
-      <input type="number" id="cost" placeholder="Cost" required class="w-full border rounded px-3 py-2">
+    <h2 class="font-semibold mb-3 text-lg">Add New Student</h2>
+    <form id="studentForm" class="space-y-3">
+      <input type="text" id="name" placeholder="Name" requibrown class="w-full border rounded px-3 py-2">
+      <input type="email" id="email" placeholder="Email" requibrown class="w-full border rounded px-3 py-2">
+      <input type="number" id="phone" placeholder="Phone" requibrown class="w-full border rounded px-3 py-2">
+      <input type="number" id="cost" placeholder="Cost" requibrown class="w-full border rounded px-3 py-2">
+
       <div class="flex space-x-2">
         <button type="submit" id="submitBtn"
           class="flex-1 bg-brown-500 hover:bg-orange-600 text-white py-2 rounded">
-          Add Book
+          Add Student
         </button>
 
         <button type="button" id="cancelBtn"
@@ -35,35 +34,33 @@
     </form>
   </div>
 
-  <!-- Librarian Table -->
+  <!-- Student Table -->
   <div class="bg-white p-5 rounded shadow">
-    <h2 class="font-semibold mb-4 text-lg">All Books</h2>
+    <h2 class="font-semibold mb-4 text-lg">All Students</h2>
 
     <!-- Loading Spinner -->
     <div id="loadingSpinner" class="text-center py-4">
       <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-brown-500 mx-auto"></div>
     </div>
 
-    <!-- Librarian Table Container -->
-    <div id="BooksTableContainer" class="hidden overflow-x-auto">
+    <!-- Student Table Container -->
+    <div id="studentsTableContainer" class="hidden overflow-x-auto">
       <table class="min-w-full text-left border">
         <thead class="bg-gray-200">
           <tr>
             <th class="px-3 py-2">ID</th>
-            <th class="px-3 py-2">Title</th>
-            <th class="px-3 py-2">Author</th>
-            <th class="px-3 py-2">Isbn</th>
-            <th class="px-3 py-2">Shelf_id</th>
+            <th class="px-3 py-2">Name</th>
+            <th class="px-3 py-2">Email</th>
+            <th class="px-3 py-2">Phone</th>
             <th class="px-3 py-2">Cost</th>
-
             <th class="px-3 py-2">Actions</th>
           </tr>
         </thead>
-        <tbody id="BooksTableBody"></tbody>
+        <tbody id="studentsTableBody"></tbody>
       </table>
 
-      <p id="noBooks" class="text-center text-gray-500 mt-3 hidden">
-        No Books found. Add one using the form above.
+      <p id="noStudents" class="text-center text-gray-500 mt-3 hidden">
+        No Students found. Add one using the form above.
       </p>
     </div>
   </div>

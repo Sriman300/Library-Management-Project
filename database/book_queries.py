@@ -19,8 +19,8 @@ def db_create_book(data):
     conn = get_connection()
     now = datetime.now().isoformat()
     cur = conn.execute(
-        "INSERT INTO books (title, author, isbn, shelf_id, created_at) VALUES (?, ?, ?, ?, ?)",
-        (data["title"], data["author"], data["isbn"], data.get("shelf_id"), now)
+        "INSERT INTO books (title, author, isbn, shelf_id, cost, student_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        (data["title"], data["author"], data["isbn"], data.get("shelf_id"), data.get("cost"), data.get("student_name"), now)
     )
     conn.commit()
     new_id = cur.lastrowid
@@ -31,8 +31,8 @@ def db_update_book(book_id, data):
     conn = get_connection()
     now = datetime.now().isoformat()
     conn.execute("""
-        UPDATE books SET title=?, author=?, isbn=?, shelf_id=?, updated_at=? WHERE id=?
-    """, (data["title"], data["author"], data["isbn"], data.get("shelf_id"), now, book_id))
+        UPDATE books SET title=?, author=?, isbn=?, shelf_id=?, cost=?, student_name=?, updated_at=? WHERE id=?
+    """, (data["title"], data["author"], data["isbn"], data.get("shelf_id"), data.get("cost"), data.get("student_name"), now, book_id))
     conn.commit()
     conn.close()
     return db_get_one_book(book_id)
