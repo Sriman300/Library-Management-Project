@@ -32,7 +32,6 @@ export function renderstudentTable(students) {
       <td class="px-3 py-2">${student.name}</td>
       <td class="px-3 py-2">${student.email}</td>
       <td class="px-3 py-2">${student.phone}</td>
-      <td class="px-3 py-2">${student.cost}</td>
       <td class="px-3 py-2 flex space-x-2">
         <!-- Buttons are created with data attributes holding the student ID -->
         <button class="bg-yellow-400 hover:bg-yellow-500 text-black py-1 px-3 rounded"

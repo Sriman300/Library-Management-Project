@@ -37,7 +37,7 @@ from core.responses import send_404
 from core.middleware import add_cors_headers
 
 
-FRONTEND_ROUTES = {"/", "/home", "/books","/librarians","/bookshelves","/students" "/docs"}
+FRONTEND_ROUTES = {"/", "/home", "/books","/librarians","/bookshelves","/students", "/docs" , "/profiles"}
 
 def handle_ui_routes(handler, path):
     if path in FRONTEND_ROUTES:
@@ -59,6 +59,10 @@ def handle_ui_routes(handler, path):
         return True
 
     return False
+# -------------------------------
+# MAIN ROUTER CLASS
+# -------------------------------
+
 
 class LibraryRouter(BaseHTTPRequestHandler):
 

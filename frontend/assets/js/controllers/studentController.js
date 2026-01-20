@@ -24,7 +24,7 @@ export function initStudentController() {
       name: $("name").value.trim(),
       email: $("email").value.trim(),
       phone: $("phone").value.trim(),
-      cost: $("cost").value.trim()
+     
      
     };
 

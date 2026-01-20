@@ -18,7 +18,7 @@ export function fillForm(student) {
   $("name").value = student.name;
   $("email").value = student.email;
   $("phone").value = student.phone;
-  $("cost").value = student.cost;
+
 
   // Change the submit button text to "Update student"
   $("submitBtn").textContent = "Update Student";

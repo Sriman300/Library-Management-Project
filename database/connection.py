@@ -55,7 +55,6 @@ def init_database():
             name TEXT,
             email TEXT,
             phone INTEGER,
-            cost INTEGER,
             created_at TEXT,
             updated_at TEXT
         )

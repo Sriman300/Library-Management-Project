@@ -2,6 +2,8 @@ import { initBookController } from "../controllers/bookController.js";
 import { initLibrarianController } from "../controllers/librarianController.js";
 import { initBookshelfController } from "../controllers/bookshelfController.js";
 import { initStudentController } from "../controllers/studentController.js";
+import { initProfileController } from "../controllers/profileController.js";
+import { initProfilesController } from "../controllers/profilesController.js";
 // Load a view into #app container
 async function loadView(path) {
   const html = await fetch(path).then(res => res.text());
@@ -33,6 +35,34 @@ export async function router() {
     else if (path === "/students") {
     await loadView("/frontend/pages/student.html");
     initStudentController();
+    
+  }
+  
+  // --------------------
+  // PROFILES DIRECTORY (list)
+  // --------------------
+  else if (path === "/profiles") {
+    await loadView("/frontend/pages/profiles.html");
+    initProfilesController();
+    return;
+  }
+
+  // --------------------
+  // PROFILE PAGE (dynamic): /profiles/:id
+  // --------------------
+  else if (path.startsWith("/profiles/")) {
+    const idStr = path.split("/")[2]; // "/profiles/1" -> "1"
+    const id = Number(idStr);
+
+    // If invalid id, show 404
+    if (!Number.isInteger(id)) {
+      await loadView("/frontend/pages/404.html");
+      return;
+    }
+
+    await loadView("/frontend/pages/profile.html");
+    initProfileController(id);
+    return;
   }
 
   else {
