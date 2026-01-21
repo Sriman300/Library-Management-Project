@@ -4,7 +4,8 @@ import { $ } from "../utils/dom.js";
 import { filterList, sortList } from "../utils/listTools.js";
 import { exportToCSV, exportToPDF } from "../utils/exportTools.js";
 
-const API_URL = window.ENV.API_BASE_URL; // /api/students
+const API_URL = `${window.ENV.API_BASE_URL}/students`;
+
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -117,7 +118,7 @@ function buildPrintableTableHTML(title, rows, columns) {
     <table>
       <thead>
         <tr>
-          ${columns.map((c) => `<th>${esc(b.label)}</th>`).join("")}
+          ${columns.map((b) => `<th>${esc(b.label)}</th>`).join("")}
         </tr>
       </thead>
       <tbody>
@@ -125,7 +126,7 @@ function buildPrintableTableHTML(title, rows, columns) {
           .map(
             (r) => `
           <tr>
-            ${columns.map((c) => `<td>${esc(r?.[b.key])}</td>`).join("")}
+            ${columns.map((b) => `<td>${esc(r?.[b.key])}</td>`).join("")}
           </tr>
         `
           )

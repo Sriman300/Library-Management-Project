@@ -1,7 +1,7 @@
 import { $ } from "../utils/dom.js";
 import { editBook, deleteBookAction } from "../controllers/bookController.js";
 
-// Renders the list of books into an HTML table
+// Renders the list of Books into an HTML table
 export function renderBookTable(books) {
   // Get references to the table body where rows will be inserted and the 'no books' message
   const body = $("booksTableBody");
@@ -29,12 +29,12 @@ export function renderBookTable(books) {
     // Populate the row with dynamic HTML content using a template literal
     row.innerHTML = `
       <td class="px-3 py-2">${book.id}</td>
-      <td class="px-3 py-2">${book.title}</td>
+      <td class="px-3 py-2">${book.tile}</td>
       <td class="px-3 py-2">${book.author}</td>
       <td class="px-3 py-2">${book.isbn}</td>
       <td class="px-3 py-2">${book.shelf_id}</td>
       <td class="px-3 py-2">${book.cost}</td>
-      <td class="px-3 py-2 flex apace-x-2">
+      <td class="px-3 py-2 flex space-x-2">
         <!-- Buttons are created with data attributes holding the book ID -->
         <button class="bg-yellow-400 hover:bg-yellow-500 text-black py-1 px-3 rounded"
           data-edit="${book.id}">Edit</button>
@@ -58,4 +58,3 @@ export function renderBookTable(books) {
     body.appendChild(row);
   });
 }
-

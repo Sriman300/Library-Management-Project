@@ -57,7 +57,6 @@ export async function router() {
     // If invalid id, show 404
     if (!Number.isInteger(id)) {
       await loadView("/frontend/pages/404.html");
-      return;
     }
 
     await loadView("/frontend/pages/profile.html");
