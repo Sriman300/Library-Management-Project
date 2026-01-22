@@ -21,9 +21,9 @@ function normalizeBooks
     book_isbn: r.book_isbn ?? r.isbn ?? "-",
     librarian_name: r.librarian_name ?? "-",
     book_cost: r.book_cost ?? "-",
-    stuent_name: r.student_name ?? "-",
-    stuent_phone: r.student_phone ?? "-",
-    stuent_email: r.student_email ?? "-",
+    student_name: r.student_name ?? "-",
+    student_phone: r.student_phone ?? "-",
+    student_email: r.student_email ?? "-",
     student_id: r.student_id,
   }));
 }
@@ -84,7 +84,7 @@ export async function initProfileController(studentId) {
     show("basicDetails", true);
 
     // Book report (JOIN)
-    const repRes = await fetch(`/api/reports/books`);
+    const repRes = await fetch(`/api/books`);
     if (!repRes.ok) throw new Error("Report failed");
     const all = await repRes.json();
 

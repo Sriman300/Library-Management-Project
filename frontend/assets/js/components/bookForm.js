@@ -15,11 +15,12 @@ export function resetForm() {
 // Populates the input form fields with data from a selected book object (for editing)
 export function fillForm(book) {
   // Fill each input field with the corresponding property from the book data
-  $("title").value = book.title;
-  $("author").value = book.author;
-  $("isbn").value = book.isbn;
-  $("shelf_id").value = book.shelf_id;
-  $("cost").value = book.cost;
+  $("title").value = book.title ?? "";
+  $("author").value = book.author ?? "";
+  $("isbn").value = book.isbn ?? "";
+  $("shelf_id").value = book.shelf_id ?? "";
+  $("cost").value = book.cost ?? "";
+ 
 
 
   // Change the submit button text to "Update book"
