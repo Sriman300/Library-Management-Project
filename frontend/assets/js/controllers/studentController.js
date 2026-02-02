@@ -6,15 +6,27 @@ import {
   apiDeleteStudent 
 } from "../services/studentService.js";
 
-import { showAlert } from "../components/Alert.js";
-import { renderStudentTable } from "../components/studentTable.js";
-import { resetForm, fillForm, fillstudentDropdowns } from "../components/studentForm.js";
-import { setState, getState } from "../state/store.js";
-import { $, createElement } from "../utils/dom.js";
+import { apiGetAllBooks } from "../services/bookService.js";
+import { apiGetAllLibrarians } from "../services/librarianService.js";
 
-// Initialize the main logic and set up all necessary event listeners
-export function initStudentController() {
-  loadStudents();
+import { showAlert } from "../components/Alert.js";
+import { renderstudentTable } from "../components/studentTable.js";
+import { 
+  resetForm, 
+  fillForm, 
+  fillstudentDropdowns 
+} from "../components/studentForm.js";
+
+import { setState, getState } from "../state/store.js";
+import { $ } from "../utils/dom.js";
+
+
+// ============================
+// INIT CONTROLLER
+// ============================
+export async function initStudentController() {
+  await loadStudents();
+  await loadBookAndLibrarianDropdowns();
 
   $("studentForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -23,16 +35,17 @@ export function initStudentController() {
       name: $("name").value.trim(),
       email: $("email").value.trim(),
       phone: $("phone").value.trim(),
-      book_id:$("book_id").value.trim(),
-      librarian_id:$("librarian_id").value.trim(),
-     
+      book_id: $("book_id").value.trim(),
+      librarian_id: $("librarian_id").value.trim(),
     };
 
     const { editingId } = getState();
 
-    editingId
-      ? await updateStudent(editingId, data)
-      : await createNewStudent(data);
+    if (editingId) {
+      await updateStudent(editingId, data);
+    } else {
+      await createNewStudent(data);
+    }
   });
 
   $("cancelBtn").addEventListener("click", () => {
@@ -42,7 +55,9 @@ export function initStudentController() {
 }
 
 
-// Fetch all student data from the API and update the user interface
+// ============================
+// LOAD STUDENTS
+// ============================
 export async function loadStudents() {
   const spinner = $("loadingSpinner");
   const table = $("studentsTableContainer");
@@ -53,25 +68,64 @@ export async function loadStudents() {
   const students = await apiGetAllStudents();
 
   setState({ students });
-  renderStudentTable(students);
+  renderstudentTable(students);
 
   spinner.style.display = "none";
   table.style.display = "block";
 }
 
 
-// Create a new student
-export async function createNewStudent(data) {
-  const res = await apiCreateStudent(data);
-  if (res.ok) {
-    showAlert("student added!");
-    resetForm();
-    loadStudents();
+// ============================
+// LOAD BOOKS + LIBRARIANS
+// ============================
+async function loadBookAndLibrarianDropdowns() {
+  try {
+    const [books, librarians] = await Promise.all([
+      apiGetAllBooks(),
+      apiGetAllLibrarians()
+    ]);
+
+    fillstudentDropdowns(books, librarians);
+
+    // Optional UX warnings
+    if (!books || books.length === 0) {
+      $("noBooks").classList.remove("hidden");
+    } else {
+      $("noBooks").classList.add("hidden");
+    }
+
+    if (!librarians || librarians.length === 0) {
+      $("noLibrarians").classList.remove("hidden");
+    } else {
+      $("noLibrarians").classList.add("hidden");
+    }
+
+  } catch (err) {
+    console.error("Failed to load books/librarians", err);
+    showAlert("Failed to load books or librarians", "error");
   }
 }
 
 
-// Load a student into the form for editing
+// ============================
+// CREATE STUDENT
+// ============================
+export async function createNewStudent(data) {
+  const res = await apiCreateStudent(data);
+
+  if (res.ok) {
+    showAlert("Student added!");
+    resetForm();
+    await loadStudents();
+  } else {
+    showAlert("Failed to add student", "error");
+  }
+}
+
+
+// ============================
+// EDIT STUDENT
+// ============================
 export async function editStudent(id) {
   const student = await apiGetOneStudent(id);
 
@@ -82,25 +136,35 @@ export async function editStudent(id) {
 }
 
 
-// Update an existing student
+// ============================
+// UPDATE STUDENT
+// ============================
 export async function updateStudent(id, data) {
   const res = await apiUpdateStudent(id, data);
+
   if (res.ok) {
-    showAlert("Updated!");
+    showAlert("Student updated!");
     resetForm();
     setState({ editingId: null });
-    loadStudents();
+    await loadStudents();
+  } else {
+    showAlert("Failed to update student", "error");
   }
 }
 
 
-// Delete a student
+// ============================
+// DELETE STUDENT
+// ============================
 export async function deleteStudentAction(id) {
   if (!confirm("Delete this student?")) return;
 
   const res = await apiDeleteStudent(id);
+
   if (res.ok) {
-    showAlert("Deleted!");
-    loadStudents();
+    showAlert("Student deleted!");
+    await loadStudents();
+  } else {
+    showAlert("Failed to delete student", "error");
   }
 }

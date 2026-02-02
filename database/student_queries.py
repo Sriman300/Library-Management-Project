@@ -1,7 +1,7 @@
 from datetime import datetime
 from .connection import get_connection
 
-# ------------------- Students -------------------
+# ------------------- LIBRARIANS -------------------
 def db_get_all_students():
     conn = get_connection()
     rows = conn.execute("SELECT * FROM students ORDER BY id DESC").fetchall()
@@ -18,8 +18,8 @@ def db_create_student(data):
     conn = get_connection()
     now = datetime.now().isoformat()
     cur = conn.execute(
-        "INSERT INTO students (name, email, phone, librarian_id, book_id, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-        (data["name"], data["email"], data["phone"], data["librarian_id"], data["book_id"], now)
+        "INSERT INTO students (name, email, phone, book_id, librarian_id, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+        (data["name"], data["email"], data["phone"], data.get("book_id"), data.get("librarian_id"), now)
     )
     conn.commit()
     new_id = cur.lastrowid
@@ -31,7 +31,7 @@ def db_update_student(student_id, data):
     now = datetime.now().isoformat()
     conn.execute("""
         UPDATE students SET name=?, email=?, phone=?, book_id=?, librarian_id=?, updated_at=? WHERE id=?
-    """, (data["name"], data["email"], data["phone"], data["book_id"], data["librarian_id"], now, student_id))
+    """, (data["name"], data["email"], data["phone"], data.get("book_id"), data.get("librarian_id"), now, student_id))
     conn.commit()
     conn.close()
     return db_get_one_student(student_id)

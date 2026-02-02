@@ -1,57 +1,99 @@
-<div class="max-w-3xl mx-auto p-6">
+<div class="max-w-3xl mx-auto p-6 bg-gray-50 rounded-2xl shadow-lg">
 
-  <div class="flex items-center justify-between mb-6">
-    <h1 class="text-3xl font-bold">Library Management System</h1>
-    <a href="/home" data-link class="text-sm text-brown-600 underline">← Back to Home</a>
+  <!-- Header -->
+  <div class="flex flex-wrap items-center justify-between mb-6 gap-2">
+    <h1 class="text-3xl font-bold text-purple-700">Library Management System</h1>
 
-    <a href="/books" data-link class="text-sm text-brown-600 underline"><-Books</a>
-
-    <a href="/bookshelves" data-link class="text-sm text-brown-600 underline">Bookshelves-></a>
-
-    <a href="/librarians" data-link class="text-sm text-brown-600 underline">Librarians-></a>
+    <div class="flex gap-4 flex-wrap text-sm">
+      <a href="/home" data-link class="text-purple-600 underline hover:text-purple-800">← Home</a>
+      <a href="/books" data-link class="text-orange-600 underline hover:text-orange-800">← Books</a>
+      <a href="/bookshelves" data-link class="text-green-600 underline hover:text-green-800">Bookshelves →</a>
+      <a href="/librarians" data-link class="text-blue-600 underline hover:text-blue-800">Librarians →</a>
+    </div>
   </div>
 
   <!-- Add / Edit Student Form -->
-  <div class="bg-white p-5 rounded shadow mb-8">
-    <h2 class="font-semibold mb-3 text-lg">Add New Student</h2>
-    <form id="studentForm" class="space-y-3">
-      <input type="text" id="name" placeholder="Name" requibrown class="w-full border rounded px-3 py-2">
-      <input type="email" id="email" placeholder="Email" requibrown class="w-full border rounded px-3 py-2">
-      <input type="number" id="phone" placeholder="Phone" required class="w-full border rounded px-3 py-2">
-      <select id="book_id" class="w-full border rounded px-3 py-2" required>
+  <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+    <h2 class="font-semibold mb-4 text-lg text-purple-700">Add / Edit Student</h2>
+
+    <form id="studentForm" class="space-y-4">
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Name"
+        required
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none"
+      >
+
+      <input
+        type="email"
+        id="email"
+        placeholder="Email"
+        required
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none"
+      >
+
+      <input
+        type="number"
+        id="phone"
+        placeholder="Phone"
+        required
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none"
+      >
+
+      <select
+        id="book_id"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none"
+        required
+      >
         <option value="">Select Book</option>
       </select>
 
-      <select id="librarian_id" class="w-full border rounded px-3 py-2" required>
+      <select
+        id="librarian_id"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none"
+        required
+      >
         <option value="">Select Librarian</option>
       </select>
 
-        <button type="submit" id="submitBtn"
-          class="flex-1 bg-brown-500 hover:bg-orange-600 text-white py-2 rounded">
+      <!-- Buttons -->
+      <div class="flex flex-wrap gap-3 pt-2">
+        <button
+          type="submit"
+          id="submitBtn"
+          class="flex-1 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-2 rounded-lg transition"
+        >
           Add Student
         </button>
 
-        <button type="button" id="cancelBtn"
-          class="flex-1 bg-gray-400 hover:bg-purple-500 text-white py-2 rounded hidden">
+        <button
+          type="button"
+          id="cancelBtn"
+          class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 rounded-lg hidden transition"
+        >
           Cancel
         </button>
       </div>
+
     </form>
   </div>
 
   <!-- Student Table -->
-  <div class="bg-white p-5 rounded shadow">
-    <h2 class="font-semibold mb-4 text-lg">All Students</h2>
+  <div class="bg-white p-6 rounded-xl shadow-md">
+    <h2 class="font-semibold mb-4 text-lg text-purple-700">All Students</h2>
 
     <!-- Loading Spinner -->
     <div id="loadingSpinner" class="text-center py-4">
-      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-brown-500 mx-auto"></div>
+      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-500 mx-auto"></div>
     </div>
 
     <!-- Student Table Container -->
     <div id="studentsTableContainer" class="hidden overflow-x-auto">
-      <table class="min-w-full text-left border">
-        <thead class="bg-gray-200">
+
+      <table class="min-w-full text-left border border-gray-200 rounded-lg">
+        <thead class="bg-gray-100">
           <tr>
             <th class="px-3 py-2">ID</th>
             <th class="px-3 py-2">Name</th>
@@ -65,16 +107,36 @@
         <tbody id="studentsTableBody"></tbody>
       </table>
 
-      <p id="noStudents" class="text-center text-gray-500 mt-3 hidden">
-        No Students found. Add one using the form above.
+      <!-- Empty States -->
+      <p
+        id="noStudents"
+        class="text-center text-gray-500 mt-3 hidden"
+      >
+        No students found. Add one using the form above.
       </p>
-      <p id="noBooks" class="hidden"></p>
-      No books found. Please add books first.
-      <p id="noLibrarians" class="hidden"></p>
-      No librarians found. Please add librarians first.
+
+      <p
+        id="noBooks"
+        class="hidden text-red-500 text-center mt-2"
+      >
+        No books found. Please add books first.
+      </p>
+
+      <p
+        id="noLibrarians"
+        class="hidden text-red-500 text-center mt-2"
+      >
+        No librarians found. Please add librarians first.
+      </p>
+
     </div>
   </div>
 
   <!-- Alert container -->
-  <div id="alertContainer" class="fixed top-4 right-4 space-y-2 z-50"></div>
+  <div
+    id="alertContainer"
+    class="fixed top-4 right-4 space-y-2 z-50"
+  ></div>
+
 </div>
+

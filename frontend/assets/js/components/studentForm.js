@@ -1,51 +1,59 @@
-import { $, createElement } from "../utils/dom.js";
+import { $ } from "../utils/dom.js";
+import { setState } from "../state/store.js";
 
-// Resets the input form to its default state for creating a new student
+// -------------------------------
+// Reset the student form
+// -------------------------------
 export function resetForm() {
-  // Use the native .reset() method on the HTML form element
   $("studentForm").reset();
-
-  // Change the submit button text back to "Add Student"
-  $("submitBtn").textContent = "Add student";
-
-  // Hide the "Cancel" button, as we are no longer in 'edit' mode
-  $("cancelBtn").style.display = "none";
+  $("cancelBtn").classList.add("hidden");
+  $("submitBtn").textContent = "Add Student";
 }
 
-// Populates the input form fields with data from a selected student object (for editing)
+// -------------------------------
+// Fill form with student data for editing
+// -------------------------------
 export function fillForm(student) {
-  // Fill each input field with the corresponding property from the student data
-  $("name").value = student.name;
-  $("email").value = student.email;
-  $("phone").value = student.phone;
+  if (!student) return;
 
+  $("name").value = student.name || "";
+  $("email").value = student.email || "";
+  $("phone").value = student.phone || "";
+  $("book_id").value = student.book_id || "";
+  $("librarian_id").value = student.librarian_id || "";
 
-
-  // Change the submit button text to "Update student"
+  $("cancelBtn").classList.remove("hidden");
   $("submitBtn").textContent = "Update Student";
-
-  // Show the "Cancel" button, allowing the user to exit 'edit' mode
-  $("cancelBtn").style.display = "inline-block";
 }
+
+// -------------------------------
+// Fill dropdowns for books & librarians
+// -------------------------------
 export function fillstudentDropdowns(books, librarians) {
-  const booksSel = $("book_id");
-  const librariansSel = $("librarian_id");
+  const bookSelect = $("book_id");
+  const librarianSelect = $("librarian_id");
 
-  booksSel.innerHTML = `<option value="">Select Book</option>`;
-  librariansSel.innerHTML = `<option value="">Select Librarian</option>`;
+  // Clear previous options except default
+  bookSelect.querySelectorAll("option:not(:first-child)").forEach(o => o.remove());
+  librarianSelect.querySelectorAll("option:not(:first-child)").forEach(o => o.remove());
 
-  (books || []).forEach(s => {
-    const opt = document.createElement("option");
-    opt.value = s.id;
-    opt.textContent = `${s.title} (ID: ${s.id})`;
-    booksSel.appendChild(opt);
-  });
+  // Fill books
+  if (books && books.length) {
+    books.forEach(book => {
+      const option = document.createElement("option");
+      option.value = book.id;
+      option.textContent = book.title;
+      bookSelect.appendChild(option);
+    });
+  }
 
-  (librarians || []).forEach(c => {
-    const opt = document.createElement("option");
-    opt.value = c.id;
-    opt.textContent = `${c.name} (ID: ${c.id})`;
-    librariansSel.appendChild(opt);
-  });
+  // Fill librarians
+  if (librarians && librarians.length) {
+    librarians.forEach(librarian => {
+      const option = document.createElement("option");
+      option.value = librarian.id;
+      option.textContent = `${librarian.name}`;
+      librarianSelect.appendChild(option);
+    });
+  }
 }
-
