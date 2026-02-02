@@ -17,7 +17,7 @@ def service_get_one_student(student_id):
 
 
 def service_create_student(data):
-    required_fields = ["name", "email", "phone"]
+    required_fields = ["name", "email", "phone", "book_id", "librarian_id"]
 
     for field in required_fields:
         if not data.get(field):

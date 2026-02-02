@@ -41,7 +41,7 @@ def init_database():
         CREATE TABLE IF NOT EXISTS bookshelves (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             location TEXT,
-            description TEXT
+            description TEXT,
             book TEXT,
             created_at TEXT,
             updated_at TEXT
@@ -55,8 +55,8 @@ def init_database():
             name TEXT,
             email TEXT,
             phone INTEGER,
-            book_id INTEGER NOT NULL,
-            librarian_id INTEGER NOT NULL,
+            book_id INTEGER,
+            librarian_id INTEGER,
             created_at TEXT,
             updated_at TEXT
         )

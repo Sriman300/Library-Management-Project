@@ -35,8 +35,8 @@ export async function initStudentController() {
       name: $("name").value.trim(),
       email: $("email").value.trim(),
       phone: $("phone").value.trim(),
-      book_id: $("book_id").value.trim(),
-      librarian_id: $("librarian_id").value.trim(),
+      book_id: $("book_id").value ? Number($("book_id").value) : null,
+      librarian_id: $("librarian_id").value ? Number($("librarian_id").value) : null,
     };
 
     const { editingId } = getState();

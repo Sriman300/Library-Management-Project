@@ -27,8 +27,8 @@ export function renderstudentTable(students) {
       <td class="px-3 py-2">${student.name}</td>
       <td class="px-3 py-2">${student.email}</td>
       <td class="px-3 py-2">${student.phone}</td>
-      <td class="px-3 py-2">${student.book_id || "-"}</td>
-      <td class="px-3 py-2">${student.librarian_id || "-"}</td>
+      <td class="px-3 py-2">${student.book_id}</td>
+      <td class="px-3 py-2">${student.librarian_id}</td>
       <td class="px-3 py-2 flex gap-2">
         <button class="editBtn bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded"
                 data-id="${student.id}">

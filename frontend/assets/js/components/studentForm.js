@@ -16,11 +16,11 @@ export function resetForm() {
 export function fillForm(student) {
   if (!student) return;
 
-  $("name").value = student.name || "";
-  $("email").value = student.email || "";
-  $("phone").value = student.phone || "";
-  $("book_id").value = student.book_id || "";
-  $("librarian_id").value = student.librarian_id || "";
+  $("name").value = student.name;
+  $("email").value = student.email;
+  $("phone").value = student.phone;
+  $("book_id").value = student.book_id;
+  $("librarian_id").value = student.librarian_id;
 
   $("cancelBtn").classList.remove("hidden");
   $("submitBtn").textContent = "Update Student";
