@@ -18,8 +18,8 @@ def db_create_student(data):
     conn = get_connection()
     now = datetime.now().isoformat()
     cur = conn.execute(
-        "INSERT INTO students (name, email, phone, created_at) VALUES (?, ?, ?, ?)",
-        (data["name"], data["email"], data["phone"], now)
+        "INSERT INTO students (name, email, phone, librarian_id, book_id, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+        (data["name"], data["email"], data["phone"], data["librarian_id"], data["book_id"], now)
     )
     conn.commit()
     new_id = cur.lastrowid
@@ -30,8 +30,8 @@ def db_update_student(student_id, data):
     conn = get_connection()
     now = datetime.now().isoformat()
     conn.execute("""
-        UPDATE students SET name=?, email=?, phone=?, updated_at=? WHERE id=?
-    """, (data["name"], data["email"], data["phone"], now, student_id))
+        UPDATE students SET name=?, email=?, phone=?, book_id=?, librarian_id=?, updated_at=? WHERE id=?
+    """, (data["name"], data["email"], data["phone"], data["book_id"], data["librarian_id"], now, student_id))
     conn.commit()
     conn.close()
     return db_get_one_student(student_id)

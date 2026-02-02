@@ -20,9 +20,32 @@ export function fillForm(student) {
   $("phone").value = student.phone;
 
 
+
   // Change the submit button text to "Update student"
   $("submitBtn").textContent = "Update Student";
 
   // Show the "Cancel" button, allowing the user to exit 'edit' mode
   $("cancelBtn").style.display = "inline-block";
 }
+export function fillstudentDropdowns(books, librarians) {
+  const booksSel = $("book_id");
+  const librariansSel = $("librarian_id");
+
+  booksSel.innerHTML = `<option value="">Select Book</option>`;
+  librariansSel.innerHTML = `<option value="">Select Librarian</option>`;
+
+  (books || []).forEach(s => {
+    const opt = document.createElement("option");
+    opt.value = s.id;
+    opt.textContent = `${s.title} (ID: ${s.id})`;
+    booksSel.appendChild(opt);
+  });
+
+  (librarians || []).forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c.id;
+    opt.textContent = `${c.name} (ID: ${c.id})`;
+    librariansSel.appendChild(opt);
+  });
+}
+

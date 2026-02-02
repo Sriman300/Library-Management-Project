@@ -8,8 +8,7 @@ import {
 
 import { showAlert } from "../components/Alert.js";
 import { renderstudentTable } from "../components/studentTable.js";
-import { resetForm, fillForm } from "../components/studentForm.js";
-
+import { resetForm, fillForm, fillstudentDropdowns } from "../components/studentForm.js";
 import { setState, getState } from "../state/store.js";
 import { $, createElement } from "../utils/dom.js";
 
@@ -24,7 +23,8 @@ export function initStudentController() {
       name: $("name").value.trim(),
       email: $("email").value.trim(),
       phone: $("phone").value.trim(),
-     
+      book_id:$("book_id").value.trim(),
+      librarian_id:$("librarian_id").value.trim(),
      
     };
 

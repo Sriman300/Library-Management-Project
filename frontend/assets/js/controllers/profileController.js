@@ -2,10 +2,11 @@
 import { $ } from "../utils/dom.js";
 import { exportProfileToCSV, exportProfileToPDF } from "../utils/exportTools.js";
 
-function show(id, yes) {
+// Utility functions
+function show(id, visible) {
   const el = $(id);
   if (!el) return;
-  el.classList[yes ? "remove" : "add"]("hidden");
+  el.classList[visible ? "remove" : "add"]("hidden");
 }
 
 function setText(id, value) {
@@ -13,21 +14,29 @@ function setText(id, value) {
   if (el) el.textContent = value ?? "";
 }
 
-function normalizeBooks
-(rows) {
+// Normalize books and extract all possible fields
+function normalizeBooks(rows) {
   return (rows || []).map((r) => ({
     book_id: r.book_id ?? r.id ?? "-",
-    book_title: r.book_title ?? "-",
+    book_title: r.book_title ?? r.title ?? "-",
     book_isbn: r.book_isbn ?? r.isbn ?? "-",
-    librarian_name: r.librarian_name ?? "-",
     book_cost: r.book_cost ?? "-",
-    student_name: r.student_name ?? "-",
-    student_phone: r.student_phone ?? "-",
-    student_email: r.student_email ?? "-",
-    student_id: r.student_id,
+    librarian_name: r.librarian_name ?? "-",
+    bookshelf_location: r.bookshelf_location ?? "-",
+    student_name: r.student_name ?? r.student?.name ?? "-",
+    student_phone: r.student_phone ?? r.student?.phone ?? "-",
+    student_email: r.student_email ?? r.student?.email ?? "-",
+    student_id:
+      r.student_id ??
+      r.studentId ??
+      r.student?.id ??
+      r.borrower_id ??
+      r.user_id ??
+      "-",
   }));
 }
 
+// Export configuration
 const PROFILE_EXPORT_CONFIG = {
   studentFields: [
     { key: "id", label: "Student ID" },
@@ -36,41 +45,52 @@ const PROFILE_EXPORT_CONFIG = {
     { key: "phone", label: "Phone" },
   ],
   rowColumns: [
-    { key: "book_title", label: "Book" },
-    { key: "book_isbn", label: "Isbn" },
-    { key: "book_cost", label: "Cost" },
+    { key: "book_title", label: "Book Title" },
+    { key: "book_isbn", label: "Book ISBN" },
+    { key: "book_cost", label: "Book Cost" },
     { key: "librarian_name", label: "Librarian" },
-    { key: "student_name", label: "Student" },
-    { key: "student_phone", label: "Student" },
-    { key: "student_email", label: "Student" },
-    { key: "bookshelf_location", label: "Bookshelf" },
+    { key: "student_name", label: "Student Name" },
+    { key: "student_phone", label: "Student Phone" },
+    { key: "student_email", label: "Student Email" },
+    { key: "bookshelf_location", label: "Bookshelf Location" },
   ],
 };
 
+// Main controller
 export async function initProfileController(studentId) {
   let student = null;
-  let books
- = [];
+  let books = [];
 
-  // Wire export buttons (reuses the util fully)
+  // Export buttons
   $("profileExportCsvBtn")?.addEventListener("click", () => {
     if (!student) return;
-    exportProfileToCSV(`student_${student.id}_profile.csv`, student, books, PROFILE_EXPORT_CONFIG);
+    exportProfileToCSV(
+      `student_${student.id}_profile.csv`,
+      student,
+      books,
+      PROFILE_EXPORT_CONFIG
+    );
   });
 
   $("profileExportPdfBtn")?.addEventListener("click", () => {
     if (!student) return;
-    exportProfileToPDF(`Student ${student.id} - Profile`, student, books, PROFILE_EXPORT_CONFIG);
+    exportProfileToPDF(
+      `Student ${student.id} - Profile`,
+      student,
+      books,
+      PROFILE_EXPORT_CONFIG
+    );
   });
 
   try {
+    // Show loaders
     show("basicLoading", true);
     show("basicDetails", false);
     show("joinLoading", true);
     show("joinTableContainer", false);
-    show("nobooks", false);
+    show("noBooks", false);
 
-    // student
+    // Fetch student
     const studentRes = await fetch(`/api/students/${studentId}`);
     if (!studentRes.ok) throw new Error("Student not found");
     student = await studentRes.json();
@@ -78,30 +98,48 @@ export async function initProfileController(studentId) {
     setText("studentId", student.id);
     setText("studentName", student.name);
     setText("studentEmail", student.email);
-    setText("studentphone", student.phone);
+    setText("studentPhone", student.phone);
 
     show("basicLoading", false);
     show("basicDetails", true);
 
-    // Book report (JOIN)
-    const repRes = await fetch(`/api/books`);
-    if (!repRes.ok) throw new Error("Report failed");
-    const all = await repRes.json();
+    // Fetch all books
+    const booksRes = await fetch(`/api/books`);
+    if (!booksRes.ok) throw new Error("Books API failed");
+    const allBooks = await booksRes.json();
+    console.log("Fetched books:", allBooks);
 
-    books= normalizeBooks
-(
-      (all || []).filter((r) => Number(r.student_id) === Number(studentId))
+    // Filter books for this student using all possible ID fields
+    books = normalizeBooks(
+      (allBooks || []).filter((r) => {
+        const possibleIds = [
+          r.student_id,
+          r.studentId,
+          r.student?.id,
+          r.borrower_id,
+          r.user_id,
+        ];
+
+        const id = possibleIds.find((x) => x != null && !isNaN(Number(x)));
+        const matches = Number(id) === Number(studentId);
+
+        if (matches) {
+          console.log("[Book Matched]", { book: r, usedField: id, studentId });
+        }
+
+        return matches;
+      })
     );
 
-    // total
-    setText("totalbooks", books.length);
+    // Update total books
+    setText("totalBooks", books.length);
 
-    // render table
+    // Render table
     const body = $("joinTableBody");
     if (body) body.innerHTML = "";
 
     if (!books.length) {
-      show("nobooks", true);
+      show("noBooks", true);
     } else {
       books.forEach((r) => {
         const tr = document.createElement("tr");
@@ -117,8 +155,9 @@ export async function initProfileController(studentId) {
           <td class="px-3 py-2">${r.student_email}</td>
           <td class="px-3 py-2">${r.bookshelf_location}</td>
         `;
-        body?.appendChild(tr);
+        body.appendChild(tr);
       });
+      show("noBooks", false);
     }
 
     show("joinLoading", false);

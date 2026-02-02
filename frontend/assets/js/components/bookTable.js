@@ -29,7 +29,7 @@ export function renderBookTable(books) {
     // Populate the row with dynamic HTML content using a template literal
     row.innerHTML = `
       <td class="px-3 py-2">${book.id}</td>
-      <td class="px-3 py-2">${book.tile}</td>
+      <td class="px-3 py-2">${book.title}</td>
       <td class="px-3 py-2">${book.author}</td>
       <td class="px-3 py-2">${book.isbn}</td>
       <td class="px-3 py-2">${book.shelf_id}</td>

@@ -6,6 +6,7 @@ export function renderstudentTable(students) {
   // Get references to the table body where rows will be inserted and the 'no students' message
   const body = $("studentsTableBody");
   const noStudents = $("noStudents");
+  const empty = $("noBooks");
 
   // Clear any existing rows from the table body before rendering new data
   body.innerHTML = "";
@@ -14,11 +15,13 @@ export function renderstudentTable(students) {
   if (students.length === 0) {
     // If no students are found, display the 'no students' message and stop execution
     noStudents.style.display = "block";
+    empty.classList.remove("hidden");
     return;
   }
 
   // If students exist, hide the 'no students' message
   noStudents.style.display = "none";
+  empty.classList.add("hidden");
 
   // Iterate over each student object in the provided array
   students.forEach(student => {
@@ -32,6 +35,8 @@ export function renderstudentTable(students) {
       <td class="px-3 py-2">${student.name}</td>
       <td class="px-3 py-2">${student.email}</td>
       <td class="px-3 py-2">${student.phone}</td>
+      <td class="px-3 py-2">${student.book_id}</td>
+      <td class="px-3 py-2">${student.librarian_id}</td>
       <td class="px-3 py-2 flex space-x-2">
         <!-- Buttons are created with data attributes holding the student ID -->
         <button class="bg-yellow-400 hover:bg-yellow-500 text-black py-1 px-3 rounded"

@@ -55,6 +55,8 @@ def init_database():
             name TEXT,
             email TEXT,
             phone INTEGER,
+            book_id INTEGER NOT NULL,
+            librarian_id INTEGER NOT NULL,
             created_at TEXT,
             updated_at TEXT
         )
