@@ -7,14 +7,14 @@ import {
 } from "../services/studentService.js";
 
 import { showAlert } from "../components/Alert.js";
-import { renderstudentTable } from "../components/studentTable.js";
+import { renderStudentTable } from "../components/studentTable.js";
 import { resetForm, fillForm, fillstudentDropdowns } from "../components/studentForm.js";
 import { setState, getState } from "../state/store.js";
 import { $, createElement } from "../utils/dom.js";
 
 // Initialize the main logic and set up all necessary event listeners
 export function initStudentController() {
-  loadstudents();
+  loadStudents();
 
   $("studentForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ export function initStudentController() {
 
 
 // Fetch all student data from the API and update the user interface
-export async function loadstudents() {
+export async function loadStudents() {
   const spinner = $("loadingSpinner");
   const table = $("studentsTableContainer");
 
@@ -53,7 +53,7 @@ export async function loadstudents() {
   const students = await apiGetAllStudents();
 
   setState({ students });
-  renderstudentTable(students);
+  renderStudentTable(students);
 
   spinner.style.display = "none";
   table.style.display = "block";
@@ -66,7 +66,7 @@ export async function createNewStudent(data) {
   if (res.ok) {
     showAlert("student added!");
     resetForm();
-    loadstudents();
+    loadStudents();
   }
 }
 
@@ -89,7 +89,7 @@ export async function updateStudent(id, data) {
     showAlert("Updated!");
     resetForm();
     setState({ editingId: null });
-    loadstudents();
+    loadStudents();
   }
 }
 
@@ -101,6 +101,6 @@ export async function deleteStudentAction(id) {
   const res = await apiDeleteStudent(id);
   if (res.ok) {
     showAlert("Deleted!");
-    loadstudents();
+    loadStudents();
   }
 }

@@ -17,14 +17,15 @@
     <form id="studentForm" class="space-y-3">
       <input type="text" id="name" placeholder="Name" requibrown class="w-full border rounded px-3 py-2">
       <input type="email" id="email" placeholder="Email" requibrown class="w-full border rounded px-3 py-2">
-      <input type="number" id="phone" placeholder="Phone" requibrown class="w-full border rounded px-3 py-2">
-       <input type="number" id="phone" placeholder="Phone" requibrown class="w-full border rounded px-3 py-2">
-      <select id="book_id" class="w-full border rounded px-3 py-2">
-        <option value="" disabled selected>Select Book</option>
+      <input type="number" id="phone" placeholder="Phone" required class="w-full border rounded px-3 py-2">
+      <select id="book_id" class="w-full border rounded px-3 py-2" required>
+        <option value="">Select Book</option>
       </select>
-      <select id="librarian_id" class="w-full border rounded px-3 py-2">
-        <option value="" disabled selected>Select Librarian</option>
-      <div class="flex space-x-2">
+
+      <select id="librarian_id" class="w-full border rounded px-3 py-2" required>
+        <option value="">Select Librarian</option>
+      </select>
+
         <button type="submit" id="submitBtn"
           class="flex-1 bg-brown-500 hover:bg-orange-600 text-white py-2 rounded">
           Add Student
@@ -67,6 +68,10 @@
       <p id="noStudents" class="text-center text-gray-500 mt-3 hidden">
         No Students found. Add one using the form above.
       </p>
+      <p id="noBooks" class="hidden"></p>
+      No books found. Please add books first.
+      <p id="noLibrarians" class="hidden"></p>
+      No librarians found. Please add librarians first.
     </div>
   </div>
 
