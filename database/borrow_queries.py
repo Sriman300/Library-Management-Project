@@ -1,4 +1,4 @@
-# Actual SQL queries — Create, Read, Update, Delete (CRUD)
+# backend/database/borrow_queries.py
 
 from datetime import datetime
 from .connection import get_connection
@@ -16,9 +16,8 @@ def db_get_one_borrow(borrow_id):
     return dict(row) if row else None
 
 def db_create_borrow(data):
-    conn = get_connection()
-    now = datetime.now().isoformat()
     """
+    Create a new borrow record.
     Expected data:
       - book_id (int)
       - student_id (int)
@@ -26,11 +25,15 @@ def db_create_borrow(data):
     """
     conn = get_connection()
     now = datetime.now().isoformat()
-    librarian_id = data.get("librarian_id") or now
 
     cur = conn.execute(
         "INSERT INTO borrows (book_id, student_id, librarian_id, created_at) VALUES (?, ?, ?, ?)",
-        (data["book_id"], data["student_id"],data["librarian_id"] , now)
+        (
+            data.get("book_id"),
+            data.get("student_id"),
+            data.get("librarian_id"),
+            now
+        )
     )
     conn.commit()
     new_id = cur.lastrowid
@@ -47,3 +50,5 @@ def db_delete_borrow(borrow_id):
     conn.commit()
     conn.close()
     return borrow
+
+

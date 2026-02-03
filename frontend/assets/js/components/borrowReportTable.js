@@ -1,6 +1,6 @@
 import { $ } from "../utils/dom.js";
 
-export function renderborrowReportTable(rows) {
+export function renderBorrowReportTable(rows) {
   const body = $("reportTableBody");
   const empty = $("noRows");
 

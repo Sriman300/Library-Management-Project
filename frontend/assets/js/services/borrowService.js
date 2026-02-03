@@ -11,21 +11,21 @@ async function safeJson(res) {
 }
 
 // Fetch all borrows
-export async function apiGetAllborrows() {
+export async function apiGetAllBorrows() {
   const res = await fetch(API_URL);
   if (!res.ok) return [];
   return safeJson(res);
 }
 
 // Fetch one borrow by ID
-export async function apiGetOneborrow(id) {
+export async function apiGetOneBorrow(id) {
   const res = await fetch(`${API_URL}/${id}`);
   if (!res.ok) return null;
   return safeJson(res);
 }
 
 // Create a new borrow
-export function apiCreateborrow(data) {
+export function apiCreateBorrow(data) {
   return fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -34,6 +34,6 @@ export function apiCreateborrow(data) {
 }
 
 // Delete a borrow
-export function apiDeleteborrow(id) {
+export function apiDeleteBorrow(id) {
   return fetch(`${API_URL}/${id}`, { method: "DELETE" });
 }
