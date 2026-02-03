@@ -2,6 +2,7 @@ import { initBookController } from "../controllers/bookController.js";
 import { initLibrarianController } from "../controllers/librarianController.js";
 import { initBookshelfController } from "../controllers/bookshelfController.js";
 import { initStudentController } from "../controllers/studentController.js";
+import { initBorrowController } from "../controllers/borrowController.js";
 import { initProfileController } from "../controllers/profileController.js";
 import { initProfilesController } from "../controllers/profilesController.js";
 // Load a view into #app container
@@ -35,6 +36,10 @@ export async function router() {
     else if (path === "/students") {
     await loadView("/frontend/pages/student.html");
     initStudentController();
+  }
+    else if (path === "/borrows") {
+    await loadView("/frontend/pages/borrows.html");
+    initBorrowController();
     
   }
   

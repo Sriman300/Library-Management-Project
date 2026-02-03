@@ -34,6 +34,14 @@ from controllers.library import (
     delete_student,
 )
 
+
+from controllers.library import (
+    get_all_borrows,
+    get_borrow,
+    create_borrow,
+    delete_borrow,
+)
+
 from core.static import serve_static
 from core.responses import send_404
 from core.middleware import add_cors_headers
@@ -46,6 +54,7 @@ FRONTEND_ROUTES = {
     "/librarians",
     "/bookshelves",
     "/students",
+    "/borrows",
     "/docs",
     "/profiles",
 }
@@ -139,6 +148,15 @@ class LibraryRouter(BaseHTTPRequestHandler):
                 return
             return get_student(self, student_id)
 
+        if path == "/api/borrows":
+            return get_all_borrows(self)
+        
+        if path.startswith("/api/borrows/"):
+            borrow_id = _parse_id(self, path)
+            if borrow_id is None:
+                return
+            return get_borrow(self, borrow_id)
+        
         return send_404(self)
 
     # ---------------------------
@@ -156,6 +174,9 @@ class LibraryRouter(BaseHTTPRequestHandler):
 
         if self.path == "/api/students":
             return create_student(self)
+
+        if self.path == "/api/borrows":
+            return create_borrow(self)
 
         return send_404(self)
 
@@ -210,6 +231,12 @@ class LibraryRouter(BaseHTTPRequestHandler):
             if bookshelf_id is None:
                 return
             return delete_bookshelf(self, bookshelf_id)
+
+        if self.path.startswith("/api/borrows/"):
+            borrow_id = _parse_id(self, self.path)
+            if borrow_id is None:
+                return
+            return delete_borrow(self, borrow_id)
 
         if self.path.startswith("/api/students/"):
             student_id = _parse_id(self, self.path)

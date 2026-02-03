@@ -30,6 +30,12 @@ from services.student_service import (
     , service_delete_student
 )
 
+from services.borrow_service import (
+    service_get_all_borrows,
+    service_get_one_borrow,
+    service_create_borrow,
+    service_delete_borrow
+)
 
 def get_all_books(handler):
     return send_json(handler, 200, service_get_all_books())
@@ -39,6 +45,8 @@ def get_all_bookshelves(handler):
     return send_json(handler, 200, service_get_all_bookshelves())
 def get_all_students(handler):
     return send_json(handler, 200, service_get_all_students())
+def get_all_borrows(handler):
+    return send_json(handler, 200, service_get_all_borrows())
 
 def get_book(handler, book_id):
     book = service_get_one_book(book_id)
@@ -52,6 +60,9 @@ def get_bookshelf(handler, bookshelf_id):
 def get_student(handler, student_id):
     student = service_get_one_student(student_id)
     return send_json(handler, 200, student) if student else send_404(handler)
+def get_borrow(handler, borrow_id):
+    borrow = service_get_one_borrow(borrow_id)
+    return send_json(handler, 200, borrow) if borrow else send_404(handler)
 
 def create_book(handler):
     data = parse_json_body(handler)
@@ -69,6 +80,10 @@ def create_student(handler):
     data = parse_json_body(handler)
     new_student = service_create_student(data)
     return send_json(handler, 201, new_student)
+def create_borrow(handler):
+    data = parse_json_body(handler)
+    new_borrow = service_create_borrow(data)
+    return send_json(handler, 201, new_borrow)
 
 
 
@@ -100,4 +115,7 @@ def delete_bookshelf(handler, bookshelf_id):
     return send_json(handler, 200, {"deleted": True}) if deleted else send_404(handler)
 def delete_student(handler, student_id):
     deleted = service_delete_student(student_id)
+    return send_json(handler, 200, {"deleted": True}) if deleted else send_404(handler)
+def delete_borrow(handler, borrow_id):
+    deleted = service_delete_borrow(borrow_id)
     return send_json(handler, 200, {"deleted": True}) if deleted else send_404(handler)

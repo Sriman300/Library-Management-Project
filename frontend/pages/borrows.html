@@ -1,0 +1,89 @@
+<div class="max-w-3xl mx-auto p-6 bg-gray-50 rounded-2xl shadow-lg">
+
+  <!-- Header -->
+  <div class="flex flex-wrap items-center justify-between mb-6 gap-2">
+    <h1 class="text-3xl font-bold text-purple-700">Library Management System</h1>
+
+    <div class="flex gap-3 flex-wrap">
+      <a href="/home" data-link class="text-sm text-purple-600 underline hover:text-purple-800">← Home</a>
+      <a href="/borrows" data-link class="text-sm text-purple-600 underline hover:text-purple-800">← Borrows</a>
+      <a href="/librarians" data-link class="text-sm text-green-600 underline hover:text-green-800">Librarians →</a>
+      <a href="/bookshelves" data-link class="text-sm text-blue-600 underline hover:text-blue-800">Bookshelves →</a>
+      <a href="/students" data-link class="text-sm text-purple-600 underline hover:text-purple-800">Students →</a>
+    </div>
+  </div>
+
+  <!-- Add / Edit Book Form -->
+  <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+    <h2 class="font-semibold mb-4 text-lg text-purple-700">Add New Borrow</h2>
+    <form id="borrowForm" class="space-y-4">
+
+      <select
+        id="book_id"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none"
+        required
+      >
+        <option value="">Select Book</option>
+      </select>
+      <select
+        id="student_id"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none"
+        required
+       >
+        <option value="">Select Student</option>
+      </select>
+      <select
+        id="librarian_id"
+        class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-300 focus:outline-none"
+        required
+      >
+        <option value="">Select Librarian</option>
+      </select>
+      <div class="flex flex-wrap gap-3">
+        <button type="submit" id="submitBtn"
+                class="flex-1 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-2 rounded-lg transition">
+          Add Borrow
+        </button>
+
+        <button type="button" id="cancelBtn"
+                class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 rounded-lg hidden transition">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Borrow Table -->
+  <div class="bg-white p-6 rounded-xl shadow-md">
+    <h2 class="font-semibold mb-4 text-lg text-purple-700">All Borrows</h2>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="text-center py-4">
+      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-500 mx-auto"></div>
+    </div>
+
+    <!-- Borrow Table Container -->
+    <div id="borrowsTableContainer" class="hidden overflow-x-auto">
+      <table class="min-w-full text-left border border-gray-200 rounded-lg">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-3 py-2">ID</th>
+            <th class="px-3 py-2">Student ID</th>
+            <th class="px-3 py-2">Librarian ID</th>
+            <th class="px-3 py-2">Book ID</th>
+            <th class="px-3 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="borrowsTableBody"></tbody>
+      </table>
+
+      <p id="noBorrows" class="text-center text-gray-500 mt-3 hidden">
+        No Borrows found. Add one using the form above.
+      </p>
+    </div>
+  </div>
+
+  <!-- Alert container -->
+  <div id="alertContainer" class="fixed top-4 right-4 space-y-2 z-50"></div>
+
+</div>

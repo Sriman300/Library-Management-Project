@@ -61,6 +61,21 @@ def init_database():
             updated_at TEXT
         )
     """)
+    # Borrows table
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS borrows (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            student_id INTEGER NOT NULL,
+            book_id INTEGER NOT NULL,
+            librarian_id INTEGER NOT NULL,
+            created_at TEXT,
+            updated_at TEXT,
+            FOREIGN KEY(student_id) REFERENCES students(id),
+            FOREIGN KEY(book_id) REFERENCES books(id),
+            FOREIGN KEY(librarian_id) REFERENCES librarians(id)
+        )
+    """)
+
     
     conn.commit()
     conn.close()

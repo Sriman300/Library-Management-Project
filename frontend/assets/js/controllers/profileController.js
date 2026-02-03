@@ -14,15 +14,17 @@ function setText(id, value) {
   if (el) el.textContent = value ?? "";
 }
 
-// Normalize books and extract all possible fields
-function normalizeBooks(rows) {
+// Normalize borrows and extract all possible fields
+function normalizeBorrows(rows) {
   return (rows || []).map((r) => ({
     book_id: r.book_id ?? r.id ?? "-",
     book_title: r.book_title ?? r.title ?? "-",
     book_isbn: r.book_isbn ?? r.isbn ?? "-",
+    book_author: r.book_author ?? r.author ?? "-",
     book_cost: r.book_cost ?? "-",
+    librarian_id: r.librarian_id ?? r.librarian?.id ?? "-",
     librarian_name: r.librarian_name ?? "-",
-    bookshelf_location: r.bookshelf_location ?? "-",
+    student_id: r.student_id ?? r.student?.id ?? "-",
     student_name: r.student_name ?? r.student?.name ?? "-",
     student_phone: r.student_phone ?? r.student?.phone ?? "-",
     student_email: r.student_email ?? r.student?.email ?? "-",
@@ -45,21 +47,22 @@ const PROFILE_EXPORT_CONFIG = {
     { key: "phone", label: "Phone" },
   ],
   rowColumns: [
+    { key: "borrow_id", label: "Borrow ID" },
     { key: "book_title", label: "Book Title" },
     { key: "book_isbn", label: "Book ISBN" },
+    { key: "book_author", label: "Book Author" },
     { key: "book_cost", label: "Book Cost" },
-    { key: "librarian_name", label: "Librarian" },
+    { key: "librarian_name", label: "Librarian Name" },
     { key: "student_name", label: "Student Name" },
     { key: "student_phone", label: "Student Phone" },
     { key: "student_email", label: "Student Email" },
-    { key: "bookshelf_location", label: "Bookshelf Location" },
   ],
 };
 
 // Main controller
 export async function initProfileController(studentId) {
   let student = null;
-  let books = [];
+  let borrows = [];
 
   // Export buttons
   $("profileExportCsvBtn")?.addEventListener("click", () => {
@@ -67,7 +70,7 @@ export async function initProfileController(studentId) {
     exportProfileToCSV(
       `student_${student.id}_profile.csv`,
       student,
-      books,
+      borrows,
       PROFILE_EXPORT_CONFIG
     );
   });
@@ -77,7 +80,7 @@ export async function initProfileController(studentId) {
     exportProfileToPDF(
       `Student ${student.id} - Profile`,
       student,
-      books,
+      borrows,
       PROFILE_EXPORT_CONFIG
     );
   });
@@ -88,7 +91,7 @@ export async function initProfileController(studentId) {
     show("basicDetails", false);
     show("joinLoading", true);
     show("joinTableContainer", false);
-    show("noBooks", false);
+    show("noBorrows", false);
 
     // Fetch student
     const studentRes = await fetch(`/api/students/${studentId}`);
@@ -103,15 +106,15 @@ export async function initProfileController(studentId) {
     show("basicLoading", false);
     show("basicDetails", true);
 
-    // Fetch all books
-    const booksRes = await fetch(`/api/books`);
-    if (!booksRes.ok) throw new Error("Books API failed");
-    const allBooks = await booksRes.json();
-    console.log("Fetched books:", allBooks);
+    // Fetch all Borrows
+    const borrowsRes = await fetch(`/api/borrows`);
+    if (!borrowsRes.ok) throw new Error("Borrows API failed");
+    const allBorrows = await borrowsRes.json();
+    console.log("Fetched borrows:", allBorrows);
 
-    // Filter books for this student using all possible ID fields
-    books = normalizeBooks(
-      (allBooks || []).filter((r) => {
+    // Filter borrows for this student using all possible ID fields
+    borrows = normalizeBorrows(
+      (allBorrows || []).filter((r) => {
         const possibleIds = [
           r.student_id,
           r.studentId,
@@ -124,24 +127,24 @@ export async function initProfileController(studentId) {
         const matches = Number(id) === Number(studentId);
 
         if (matches) {
-          console.log("[Book Matched]", { book: r, usedField: id, studentId });
+          console.log("[Borrow Matched]", { borrow: r, usedField: id, studentId });
         }
 
         return matches;
       })
     );
 
-    // Update total books
-    setText("totalBooks", books.length);
+    //total
+    setText("totalBorrows", borrows.length);
 
     // Render table
     const body = $("joinTableBody");
     if (body) body.innerHTML = "";
 
-    if (!books.length) {
-      show("noBooks", true);
+    if (!borrows.length) {
+      show("noBorrows", true);
     } else {
-      books.forEach((r) => {
+      borrows.forEach((r) => {
         const tr = document.createElement("tr");
         tr.className = "border-b";
         tr.innerHTML = `
@@ -149,15 +152,17 @@ export async function initProfileController(studentId) {
           <td class="px-3 py-2">${r.book_title}</td>
           <td class="px-3 py-2">${r.book_isbn}</td>
           <td class="px-3 py-2">${r.book_cost}</td>
+          <td class="px-3 py-2">${r.book_author}</td>
+          <td class="px-3 py-2">${r.librarian_id}</td>
           <td class="px-3 py-2">${r.librarian_name}</td>
+          <td class="px-3 py-2">${r.student_id}</td>
           <td class="px-3 py-2">${r.student_name}</td>
           <td class="px-3 py-2">${r.student_phone}</td>
           <td class="px-3 py-2">${r.student_email}</td>
-          <td class="px-3 py-2">${r.bookshelf_location}</td>
         `;
         body.appendChild(tr);
       });
-      show("noBooks", false);
+      show("noBorrows", false);
     }
 
     show("joinLoading", false);
@@ -166,8 +171,8 @@ export async function initProfileController(studentId) {
     console.error("[profileController] error:", err);
     show("basicLoading", false);
     show("joinLoading", false);
-    show("noBooks", true);
-    setText("totalBooks", 0);
+    show("noBorrows", true);
+    setText("totalBorrows", 0);
   }
 }
 
