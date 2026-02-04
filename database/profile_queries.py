@@ -8,6 +8,9 @@ def borrow_report():
     conn = get_connection()
     rows = conn.execute("""
         SELECT
+                        
+            br.id AS borrow_id,            
+
             s.id as student_id,
             s.name as student_name,
             s.email as student_email,
@@ -21,12 +24,12 @@ def borrow_report():
             b.cost AS book_cost,            
 
             l.id AS librarian_id,
-            l.name AS librarian_name,
+            l.name AS librarian_name
                         
-        FROM borrows b
-        JOIN students s ON s.id = b.student_id
-        JOIN books b ON b.id = b.book_id
-        JOIN librarians l ON l.id = b.librarian_id
+        FROM borrows br
+        JOIN students s ON s.id = br.student_id
+        JOIN books b ON b.id = br.book_id
+        JOIN librarians l ON l.id = br.librarian_id
         ORDER BY s.id DESC;
     """).fetchall()
     conn.close()

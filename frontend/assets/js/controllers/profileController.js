@@ -107,7 +107,7 @@ export async function initProfileController(studentId) {
     show("basicDetails", true);
 
     // Fetch all Borrows
-    const borrowsRes = await fetch(`/api/borrows`);
+    const borrowsRes = await fetch(`/api/borrow-report`);
     if (!borrowsRes.ok) throw new Error("Borrows API failed");
     const allBorrows = await borrowsRes.json();
     console.log("Fetched borrows:", allBorrows);
