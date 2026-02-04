@@ -3,7 +3,7 @@ import { deleteBorrowAction } from "../controllers/borrowController.js";
 
 export function renderBorrowTable(borrows) {
   const body = $("borrowTableBody");
-  const empty = $("noborrows");
+  const empty = $("noBooksBorrowed");
 
   body.innerHTML = "";
 
@@ -13,13 +13,13 @@ export function renderBorrowTable(borrows) {
   }
   empty.classList.add("hidden");
 
-  borrows.forEach(e => {
+  borrows.forEach(br => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td class="px-3 py-2 border">${br.id}</td>
-      <td class="px-3 py-2 border">${b.book_id}</td>
-      <td class="px-3 py-2 border">${b.student_id}</td
-      <td class="px-3 py-2 border">${b.librarian_id}</td>
+      <td class="px-3 py-2 border">${br.book_id}</td>
+      <td class="px-3 py-2 border">${br.student_id}</td>
+      <td class="px-3 py-2 border">${br.librarian_id}</td>
       <td class="px-3 py-2 border">
         <button class="text-red-600 underline" data-del="${br.id}">Delete</button>
       </td>
@@ -28,6 +28,6 @@ export function renderBorrowTable(borrows) {
   });
 
   body.querySelectorAll("[data-del]").forEach(btn => {
-    btn.addEventListener("click", () => deleteborrowAction(Number(btn.dataset.del)));
+    btn.addEventListener("click", () => deleteBorrowAction(Number(btn.dataset.del)));
   });
 }

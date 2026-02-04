@@ -22,7 +22,7 @@ from services.bookshelf_service import (
     , service_update_bookshelf
     , service_delete_bookshelf
 )
-from services.profile_service import service_get_borrow_report
+from services.profile_service import service_get_borrowreport
 from services.student_service import (
     service_get_all_students
     , service_get_one_student
@@ -38,7 +38,7 @@ from services.borrow_service import (
     service_delete_borrow
 )
 from services.profile_service import (
-     service_get_borrow_report
+     service_get_borrowreport
 )
 
 def get_all_books(handler):
@@ -51,9 +51,10 @@ def get_all_students(handler):
     return send_json(handler, 200, service_get_all_students())
 def get_all_borrows(handler):
     return send_json(handler, 200, service_get_all_borrows())
-def get_borrow_report(handler):
-    data = service_get_borrow_report()
+def get_borrowreport(handler):
+    data = service_get_borrowreport()
     return send_json(handler, 200, data)
+
 
 def get_book(handler, book_id):
     book = service_get_one_book(book_id)
@@ -70,6 +71,7 @@ def get_student(handler, student_id):
 def get_borrow(handler, borrow_id):
     borrow = service_get_one_borrow(borrow_id)
     return send_json(handler, 200, borrow) if borrow else send_404(handler)
+
 
 def create_book(handler):
     data = parse_json_body(handler)

@@ -17,6 +17,7 @@ function setText(id, value) {
 // Normalize borrows and extract all possible fields
 function normalizeBorrows(rows) {
   return (rows || []).map((r) => ({
+    borrow_id: r.borrow_id ?? r.id ?? "-",
     book_id: r.book_id ?? r.id ?? "-",
     book_title: r.book_title ?? r.title ?? "-",
     book_isbn: r.book_isbn ?? r.isbn ?? "-",
@@ -33,8 +34,8 @@ function normalizeBorrows(rows) {
       r.studentId ??
       r.student?.id ??
       r.borrower_id ??
-      r.user_id ??
-      "-",
+      r.user_id 
+
   }));
 }
 
@@ -91,7 +92,7 @@ export async function initProfileController(studentId) {
     show("basicDetails", false);
     show("joinLoading", true);
     show("joinTableContainer", false);
-    show("noBorrows", false);
+    show("noBooksBorrowed", false);
 
     // Fetch student
     const studentRes = await fetch(`/api/students/${studentId}`);
@@ -107,7 +108,7 @@ export async function initProfileController(studentId) {
     show("basicDetails", true);
 
     // Fetch all Borrows
-    const borrowsRes = await fetch(`/api/borrow-report`);
+    const borrowsRes = await fetch(`/api/borrowreport`);
     if (!borrowsRes.ok) throw new Error("Borrows API failed");
     const allBorrows = await borrowsRes.json();
     console.log("Fetched borrows:", allBorrows);
@@ -135,19 +136,20 @@ export async function initProfileController(studentId) {
     );
 
     //total
-    setText("totalBorrows", borrows.length);
+    setText("totalBooksBorrowed", borrows.length);
 
     // Render table
     const body = $("joinTableBody");
     if (body) body.innerHTML = "";
 
     if (!borrows.length) {
-      show("noBorrows", true);
+      show("noBooksBorrowed", true);
     } else {
       borrows.forEach((r) => {
         const tr = document.createElement("tr");
         tr.className = "border-b";
         tr.innerHTML = `
+          <td class="px-3 py-2">${r.borrow_id}</td>
           <td class="px-3 py-2">${r.book_id}</td>
           <td class="px-3 py-2">${r.book_title}</td>
           <td class="px-3 py-2">${r.book_isbn}</td>
@@ -162,7 +164,7 @@ export async function initProfileController(studentId) {
         `;
         body.appendChild(tr);
       });
-      show("noBorrows", false);
+      show("noBooksBorrowed", false);
     }
 
     show("joinLoading", false);
@@ -171,8 +173,8 @@ export async function initProfileController(studentId) {
     console.error("[profileController] error:", err);
     show("basicLoading", false);
     show("joinLoading", false);
-    show("noBorrows", true);
-    setText("totalBorrows", 0);
+    show("noBooksBorrowed", true);
+    setText("totalBooksBorrowed", 0);
   }
 }
 

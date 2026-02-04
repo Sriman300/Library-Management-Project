@@ -2,6 +2,8 @@ from datetime import datetime
 from http.server import BaseHTTPRequestHandler
 from urllib.parse import urlparse
 
+from controllers.library import get_borrowreport
+
 from controllers.library import (
     get_all_books,
     get_book,
@@ -42,6 +44,7 @@ from controllers.library import (
     delete_borrow,
 )
 
+
 from core.static import serve_static
 from core.responses import send_404
 from core.middleware import add_cors_headers
@@ -55,6 +58,7 @@ FRONTEND_ROUTES = {
     "/bookshelves",
     "/students",
     "/borrows",
+    "/profiles/borrowreport",
     "/docs",
     "/profiles",
 }
@@ -157,6 +161,9 @@ class LibraryRouter(BaseHTTPRequestHandler):
                 return
             return get_borrow(self, borrow_id)
         
+        if path == "/api/profiles/borrowreport":
+            return get_borrowreport(self)
+        
         return send_404(self)
 
     # ---------------------------
@@ -232,18 +239,18 @@ class LibraryRouter(BaseHTTPRequestHandler):
                 return
             return delete_bookshelf(self, bookshelf_id)
 
-        if self.path.startswith("/api/borrows/"):
-            borrow_id = _parse_id(self, self.path)
-            if borrow_id is None:
-                return
-            return delete_borrow(self, borrow_id)
-
         if self.path.startswith("/api/students/"):
             student_id = _parse_id(self, self.path)
             if student_id is None:
                 return
             return delete_student(self, student_id)
-
+        
+        if self.path.startswith("/api/borrows/"):
+            borrow_id = _parse_id(self, self.path)
+            if borrow_id is None:
+                return
+            return delete_borrow(self, borrow_id)
+        
         return send_404(self)
 
     def log_message(self, format, *args):

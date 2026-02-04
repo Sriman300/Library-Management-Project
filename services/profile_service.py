@@ -1,4 +1,4 @@
-from database.profile_queries import borrow_report
+from database.profile_queries import borrowreport
 
-def service_get_borrow_report():
-    return borrow_report()
+def service_get_borrowreport():
+    return borrowreport()

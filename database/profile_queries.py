@@ -1,7 +1,7 @@
 from datetime import datetime
 from .connection import get_connection
 
-def borrow_report():
+def borrowreport():
     """
     Returns joined rows: students, books, librarians
     """
