@@ -17,24 +17,18 @@ function setText(id, value) {
 // Normalize borrows and extract all possible fields
 function normalizeBorrows(rows) {
   return (rows || []).map((r) => ({
-    borrow_id: r.borrow_id ?? r.id ?? "-",
-    book_id: r.book_id ?? r.id ?? "-",
-    book_title: r.book_title ?? r.title ?? "-",
-    book_isbn: r.book_isbn ?? r.isbn ?? "-",
-    book_author: r.book_author ?? r.author ?? "-",
+    borrow_id: r.borrow_id ?? "-",
+    book_id: r.book_id ?? "-",
+    book_title: r.book_title ?? "-",
+    book_author: r.book_author ?? "-",
+    book_isbn: r.book_isbn ?? "-",
     book_cost: r.book_cost ?? "-",
-    librarian_id: r.librarian_id ?? r.librarian?.id ?? "-",
+    librarian_id: r.librarian_id ?? "-",
     librarian_name: r.librarian_name ?? "-",
-    student_id: r.student_id ?? r.student?.id ?? "-",
-    student_name: r.student_name ?? r.student?.name ?? "-",
-    student_phone: r.student_phone ?? r.student?.phone ?? "-",
-    student_email: r.student_email ?? r.student?.email ?? "-",
-    student_id:
-      r.student_id ??
-      r.studentId ??
-      r.student?.id ??
-      r.borrower_id ??
-      r.user_id 
+    student_id: r.student_id ?? "-",
+    student_name: r.student_name ?? "-",
+    student_phone: r.student_phone ?? "-",
+    student_email: r.student_email ?? "-",
 
   }));
 }
@@ -108,7 +102,7 @@ export async function initProfileController(studentId) {
     show("basicDetails", true);
 
     // Fetch all Borrows
-    const borrowsRes = await fetch(`/api/borrowreport`);
+    const borrowsRes = await fetch(`/api/profiles/borrowreport`);
     if (!borrowsRes.ok) throw new Error("Borrows API failed");
     const allBorrows = await borrowsRes.json();
     console.log("Fetched borrows:", allBorrows);
@@ -152,9 +146,9 @@ export async function initProfileController(studentId) {
           <td class="px-3 py-2">${r.borrow_id}</td>
           <td class="px-3 py-2">${r.book_id}</td>
           <td class="px-3 py-2">${r.book_title}</td>
+          <td class="px-3 py-2">${r.book_author}</td>
           <td class="px-3 py-2">${r.book_isbn}</td>
           <td class="px-3 py-2">${r.book_cost}</td>
-          <td class="px-3 py-2">${r.book_author}</td>
           <td class="px-3 py-2">${r.librarian_id}</td>
           <td class="px-3 py-2">${r.librarian_name}</td>
           <td class="px-3 py-2">${r.student_id}</td>
