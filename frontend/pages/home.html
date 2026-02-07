@@ -1,119 +1,101 @@
-<div class="min-h-screen bg-[#f8fafc] p-4 md:p-8 font-sans">
-  <div class="max-w-5xl mx-auto">
+<div class="min-h-screen bg-[#f3e8ff] p-6 md:p-12 font-sans">
+  <div class="max-w-4xl mx-auto">
     
-    <header class="text-center mb-10">
-      <div class="inline-block p-3 bg-orange-100 rounded-full mb-4">
-        <i class="fa-solid fa-building-columns text-2xl text-orange-600"></i>
-      </div>
-      <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">Su Swagatam <span class="text-orange-600">(Welcome)</span></h1>
-      <p class="text-slate-600 text-lg max-w-xl mx-auto leading-relaxed">
-        Namaskar Deviyon aur Sajano,<br>
-        <span class="font-medium text-slate-800">Mein Sriman Narayan</span> aap sabko apne Pustakalaya prabandh app mein swagat karta hun.
-      </p>
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-extrabold text-slate-900 mb-2">Su Swagatam</h1>
+      <p class="text-slate-600 font-medium tracking-wide uppercase text-xs">Sriman Narayan Pustakalaya</p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
       
-      <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-orange-300 transition-all duration-300 overflow-hidden">
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-              <i class="fa-solid fa-book text-xl"></i>
-            </div>
-            <a href="/api/books" target="_blank" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-orange-600 border border-slate-100 px-2 py-1 rounded">Raw JSON API</a>
+      <div class="group relative aspect-square bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-2xl hover:border-orange-400 transition-all duration-300 flex flex-col items-center justify-center p-4 text-center">
+        <a href="/api/books" target="_blank" class="absolute top-3 right-3 text-[9px] font-bold text-slate-400 hover:text-orange-600 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100 transition-colors">
+          JSON
+        </a>
+        
+        <a href="/books" class="flex flex-col items-center">
+          <div class="w-16 h-16 mb-3 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-all duration-300 group-hover:scale-105">
+            <i class="fa-solid fa-book text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-800 mb-1">Books App</h3>
-          <p class="text-slate-500 text-sm mb-6">Manage your library's book catalog and details.</p>
-          <a href="/books" class="flex items-center justify-center w-full py-3 bg-slate-50 text-slate-700 font-semibold rounded-xl group-hover:bg-orange-600 group-hover:text-white transition-all">
-            Enter App
-          </a>
-        </div>
+          <h3 class="text-lg font-bold text-slate-800">Books</h3>
+          <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-tighter">Catalog</p>
+        </a>
       </div>
 
-      <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-green-300 transition-all duration-300 overflow-hidden">
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
-              <i class="fa-solid fa-user-tie text-xl"></i>
-            </div>
-            <a href="/api/librarians" target="_blank" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-green-600 border border-slate-100 px-2 py-1 rounded">Raw JSON API</a>
+      <div class="group relative aspect-square bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-2xl hover:border-green-400 transition-all duration-300 flex flex-col items-center justify-center p-4 text-center">
+        <a href="/api/librarians" target="_blank" class="absolute top-3 right-3 text-[9px] font-bold text-slate-400 hover:text-green-600 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100 transition-colors">
+          JSON
+        </a>
+        
+        <a href="/librarians" class="flex flex-col items-center">
+          <div class="w-16 h-16 mb-3 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all duration-300 group-hover:scale-105">
+            <i class="fa-solid fa-user-tie text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-800 mb-1">Librarians App</h3>
-          <p class="text-slate-500 text-sm mb-6">Staff management and administrative controls.</p>
-          <a href="/librarians" class="flex items-center justify-center w-full py-3 bg-slate-50 text-slate-700 font-semibold rounded-xl group-hover:bg-green-600 group-hover:text-white transition-all">
-            Enter App
-          </a>
-        </div>
+          <h3 class="text-lg font-bold text-slate-800">Librarians</h3>
+          <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-tighter">Staff</p>
+        </a>
       </div>
 
-      <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 overflow-hidden">
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-              <i class="fa-solid fa-table-columns text-xl"></i>
-            </div>
-            <a href="/api/bookshelves" target="_blank" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-blue-600 border border-slate-100 px-2 py-1 rounded">Raw JSON API</a>
+      <div class="group relative aspect-square bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-2xl hover:border-blue-400 transition-all duration-300 flex flex-col items-center justify-center p-4 text-center">
+        <a href="/api/bookshelves" target="_blank" class="absolute top-3 right-3 text-[9px] font-bold text-slate-400 hover:text-blue-600 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100 transition-colors">
+          JSON
+        </a>
+        
+        <a href="/bookshelves" class="flex flex-col items-center">
+          <div class="w-16 h-16 mb-3 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 group-hover:scale-105">
+            <i class="fa-solid fa-table-columns text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-800 mb-1">Bookshelves App</h3>
-          <p class="text-slate-500 text-sm mb-6">Organize physical storage and shelf locations.</p>
-          <a href="/bookshelves" class="flex items-center justify-center w-full py-3 bg-slate-50 text-slate-700 font-semibold rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-all">
-            Enter App
-          </a>
-        </div>
+          <h3 class="text-lg font-bold text-slate-800">Shelves</h3>
+          <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-tighter">Storage</p>
+        </a>
       </div>
 
-      <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-purple-300 transition-all duration-300 overflow-hidden">
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors">
-              <i class="fa-solid fa-user-graduate text-xl"></i>
-            </div>
-            <a href="/api/students" target="_blank" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-purple-600 border border-slate-100 px-2 py-1 rounded">Raw JSON API</a>
+      <div class="group relative aspect-square bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-2xl hover:border-purple-400 transition-all duration-300 flex flex-col items-center justify-center p-4 text-center">
+        <a href="/api/students" target="_blank" class="absolute top-3 right-3 text-[9px] font-bold text-slate-400 hover:text-purple-600 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100 transition-colors">
+          JSON
+        </a>
+        
+        <a href="/students" class="flex flex-col items-center">
+          <div class="w-16 h-16 mb-3 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 group-hover:scale-105">
+            <i class="fa-solid fa-user-graduate text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-800 mb-1">Students App</h3>
-          <p class="text-slate-500 text-sm mb-6">Student member profiles and registrations.</p>
-          <a href="/students" class="flex items-center justify-center w-full py-3 bg-slate-50 text-slate-700 font-semibold rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-all">
-            Enter App
-          </a>
-        </div>
+          <h3 class="text-lg font-bold text-slate-800">Students</h3>
+          <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-tighter">Members</p>
+        </a>
       </div>
 
-      <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-yellow-300 transition-all duration-300 overflow-hidden">
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 group-hover:bg-yellow-600 group-hover:text-white transition-colors">
-              <i class="fa-solid fa-clock-rotate-left text-xl"></i>
-            </div>
-            <a href="/api/borrows" target="_blank" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-yellow-600 border border-slate-100 px-2 py-1 rounded">Raw JSON API</a>
+      <div class="group relative aspect-square bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-2xl hover:border-yellow-400 transition-all duration-300 flex flex-col items-center justify-center p-4 text-center">
+        <a href="/api/borrows" target="_blank" class="absolute top-3 right-3 text-[9px] font-bold text-slate-400 hover:text-yellow-600 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100 transition-colors">
+          JSON
+        </a>
+        
+        <a href="/borrows" class="flex flex-col items-center">
+          <div class="w-16 h-16 mb-3 bg-yellow-50 rounded-2xl flex items-center justify-center text-yellow-600 group-hover:bg-yellow-600 group-hover:text-white transition-all duration-300 group-hover:scale-105">
+            <i class="fa-solid fa-clock-rotate-left text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-800 mb-1">Borrows App</h3>
-          <p class="text-slate-500 text-sm mb-6">Track active loans and book return history.</p>
-          <a href="/borrows" class="flex items-center justify-center w-full py-3 bg-slate-50 text-slate-700 font-semibold rounded-xl group-hover:bg-yellow-600 group-hover:text-white transition-all">
-            Enter App
-          </a>
-        </div>
+          <h3 class="text-lg font-bold text-slate-800">Borrows</h3>
+          <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-tighter">Loans</p>
+        </a>
       </div>
 
-      <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:border-pink-300 transition-all duration-300 overflow-hidden">
-        <div class="p-6">
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-colors">
-              <i class="fa-solid fa-id-badge text-xl"></i>
-            </div>
-            <a href="/api/profiles" target="_blank" class="text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-pink-600 border border-slate-100 px-2 py-1 rounded">Raw JSON API</a>
+      <div class="group relative aspect-square bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-2xl hover:border-pink-400 transition-all duration-300 flex flex-col items-center justify-center p-4 text-center">
+        <a href="/api/profiles" target="_blank" class="absolute top-3 right-3 text-[9px] font-bold text-slate-400 hover:text-pink-600 bg-slate-50 px-2 py-1 rounded-lg border border-slate-100 transition-colors">
+          JSON
+        </a>
+        
+        <a href="/profiles" class="flex flex-col items-center">
+          <div class="w-16 h-16 mb-3 bg-pink-50 rounded-2xl flex items-center justify-center text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-all duration-300 group-hover:scale-105">
+            <i class="fa-solid fa-id-badge text-2xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-slate-800 mb-1">Profiles App</h3>
-          <p class="text-slate-500 text-sm mb-6">Update personal settings and account info.</p>
-          <a href="/profiles" class="flex items-center justify-center w-full py-3 bg-slate-50 text-slate-700 font-semibold rounded-xl group-hover:bg-pink-600 group-hover:text-white transition-all">
-            Enter App
-          </a>
-        </div>
+          <h3 class="text-lg font-bold text-slate-800">Profiles</h3>
+          <p class="text-[10px] text-slate-400 font-semibold uppercase tracking-tighter">Personal</p>
+        </a>
       </div>
 
     </div>
 
-    <footer class="mt-12 text-center text-slate-400 text-sm font-medium uppercase tracking-widest">
-      &copy; 2026 Sriman Narayan Pustakalaya Prabandh
+    <footer class="mt-16 text-center text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+      &copy; 2026 Narayan Systems
     </footer>
   </div>
 </div>

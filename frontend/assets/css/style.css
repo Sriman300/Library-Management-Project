@@ -1,12 +1,13 @@
 /* Only for minor global tweaks */
 
 body {
-  scroll-behavior: smooth;
-  background-color: url('sunshine.jpeg');
-  background-image: url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=2000&q=80');
+  scroll-behavior: smooth; 
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  background-image: 
+        linear-gradient(rgba(243, 232, 255, 0.9), rgba(243, 232, 255, 0.9)), 
+        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop');
 }
 
 /* Optional: animate alert fade */
