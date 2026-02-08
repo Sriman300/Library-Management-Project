@@ -1,11 +1,9 @@
 // frontend/assets/js/controllers/profilesController.js
-
 import { $ } from "../utils/dom.js";
 import { filterList, sortList } from "../utils/listTools.js";
 import { exportToCSV, exportToPDF } from "../utils/exportTools.js";
 
 const API_URL = `${window.ENV.API_BASE_URL}/students`;
-
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -19,6 +17,7 @@ let allStudents = [];
 export function initProfilesController() {
   loadProfiles();
 
+  // Ensure these IDs match your HTML exactly
   $("searchInput")?.addEventListener("input", refresh);
   $("sortBy")?.addEventListener("change", refresh);
   $("sortDir")?.addEventListener("change", refresh);
@@ -38,16 +37,22 @@ async function loadProfiles() {
   const spinner = $("loadingSpinner");
   const container = $("profilesTableContainer");
 
-  if (spinner) spinner.style.display = "block";
-  if (container) container.style.display = "none";
+  // Fix: Use Tailwind classes to show/hide instead of style.display
+  if (spinner) spinner.classList.remove("hidden");
+  if (container) container.classList.add("hidden");
 
-  const res = await fetch(API_URL);
-  allStudents = res.ok ? await res.json() : [];
+  try {
+    const res = await fetch(API_URL);
+    allStudents = res.ok ? await res.json() : [];
+  } catch (error) {
+    console.error("Failed to fetch students:", error);
+    allStudents = [];
+  }
 
   refresh();
 
-  if (spinner) spinner.style.display = "none";
-  if (container) container.style.display = "block";
+  if (spinner) spinner.classList.add("hidden");
+  if (container) container.classList.remove("hidden");
 }
 
 function getRows() {
@@ -68,70 +73,36 @@ function renderProfilesTable(students) {
   const noProfiles = $("noProfiles");
 
   if (!body) return;
-
   body.innerHTML = "";
 
   if (!students || students.length === 0) {
-    if (noProfiles) noProfiles.style.display = "block";
+    if (noProfiles) noProfiles.classList.remove("hidden");
     return;
   }
 
-  if (noProfiles) noProfiles.style.display = "none";
+  if (noProfiles) noProfiles.classList.add("hidden");
 
   students.forEach((s) => {
     const tr = document.createElement("tr");
-    tr.className = "border-b";
+    // Updated styling to match your rounded UI
+    tr.className = "hover:bg-gray-50/50 transition-colors group";
 
     tr.innerHTML = `
-      <td class="px-3 py-2">${s.id}</td>
-
-      <td class="px-3 py-2">
-        <a href="/profiles/${s.id}" data-link class="text-blue-600 hover:underline font-medium">
+      <td class="px-6 py-4 text-sm text-gray-600">${s.id}</td>
+      <td class="px-6 py-4 text-sm">
+        <a href="/profiles/${s.id}" data-link class="text-purple-600 hover:text-purple-800 font-semibold">
           ${s.name}
         </a>
       </td>
-
-      <td class="px-3 py-2">${s.email}</td>
-      <td class="px-3 py-2">${s.phone}</td>
-
-      <td class="px-3 py-2">
+      <td class="px-6 py-4 text-sm text-gray-600">${s.email}</td>
+      <td class="px-6 py-4 text-sm text-gray-600">${s.phone}</td>
+      <td class="px-6 py-4 text-right">
         <a href="/profiles/${s.id}" data-link
-          class="inline-flex items-center justify-center px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700">
-          View
+          class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-gray-100 text-gray-700 text-xs font-bold hover:bg-purple-600 hover:text-white transition-all">
+          View Profile
         </a>
       </td>
     `;
-
     body.appendChild(tr);
   });
-}
-
-function buildPrintableTableHTML(title, rows, columns) {
-  const esc = (v) =>
-    String(v ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;");
-
-  return `
-    <h1>${esc(title)}</h1>
-    <table>
-      <thead>
-        <tr>
-          ${columns.map((b) => `<th>${esc(b.label)}</th>`).join("")}
-        </tr>
-      </thead>
-      <tbody>
-        ${(rows || [])
-          .map(
-            (r) => `
-          <tr>
-            ${columns.map((b) => `<td>${esc(r?.[b.key])}</td>`).join("")}
-          </tr>
-        `
-          )
-          .join("")}
-      </tbody>
-    </table>
-  `;
 }
