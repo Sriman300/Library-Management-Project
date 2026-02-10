@@ -26,6 +26,8 @@ export function initBookController() {
       isbn: $("isbn").value.trim(),
       shelf_id: $("shelf_id").value.trim(),
       cost: $("cost").value.trim(),
+      issue_date: $("issue_date").value.trim(),
+      return_date: $("return_date").value.trim(),
       
     };
 

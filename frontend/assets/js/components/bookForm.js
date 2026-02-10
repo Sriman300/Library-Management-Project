@@ -20,8 +20,8 @@ export function fillForm(book) {
   $("isbn").value = book.isbn ?? "";
   $("shelf_id").value = book.shelf_id ?? "";
   $("cost").value = book.cost ?? "";
- 
-
+  $("issue_date").value = book.issue_date ?? "";
+  $("return_date").value = book.return_date ?? "";
 
   // Change the submit button text to "Update book"
   $("submitBtn").textContent = "Update Book";

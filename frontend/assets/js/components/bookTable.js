@@ -34,6 +34,8 @@ export function renderBookTable(books) {
       <td class="px-3 py-2">${book.isbn}</td>
       <td class="px-3 py-2">${book.shelf_id}</td>
       <td class="px-3 py-2">${book.cost}</td>
+      <td class="px-3 py-2">${book.issue_date}</td>
+      <td class="px-3 py-2">${book.return_date}</td>
       <td class="px-3 py-2 flex space-x-2">
         <!-- Buttons are created with data attributes holding the book ID -->
         <button class="bg-yellow-400 hover:bg-yellow-500 text-black py-1 px-3 rounded"

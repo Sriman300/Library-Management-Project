@@ -19,6 +19,8 @@ def init_database():
             isbn TEXT,
             shelf_id INTEGER,
             cost INTEGER,
+            issue_date DATE,
+            return_date DATE,
             created_at TEXT,
             updated_at TEXT
         )

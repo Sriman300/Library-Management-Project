@@ -19,8 +19,8 @@ def db_create_book(data):
     conn = get_connection()
     now = datetime.now().isoformat()
     cur = conn.execute(
-        "INSERT INTO books (title, author, isbn, shelf_id, cost, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-        (data["title"], data["author"], data["isbn"], data.get("shelf_id"), data.get("cost"), now)
+        "INSERT INTO books (title, author, isbn, shelf_id, cost, issue_date, return_date, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        (data["title"], data["author"], data["isbn"], data.get("shelf_id"), data.get("cost"), data.get("issue_date"), data.get("return_date"),  now)
     )
     conn.commit()
     new_id = cur.lastrowid
@@ -31,8 +31,8 @@ def db_update_book(book_id, data):
     conn = get_connection()
     now = datetime.now().isoformat()
     conn.execute("""
-        UPDATE books SET title=?, author=?, isbn=?, shelf_id=?, cost=? , updated_at=? WHERE id=?
-    """, (data["title"], data["author"], data["isbn"], data.get("shelf_id"), data.get("cost"), now, book_id))
+        UPDATE books SET title=?, author=?, isbn=?, shelf_id=?, cost=?, issue_date=?, return_date=?, updated_at=? WHERE id=?
+    """, (data["title"], data["author"], data["isbn"], data.get("shelf_id"), data.get("cost"), data.get("issue_date"), data.get("return_date"), now, book_id))
     conn.commit()
     conn.close()
     return db_get_one_book(book_id)
