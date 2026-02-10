@@ -21,7 +21,10 @@ def borrowreport():
             b.title AS book_title,
             b.author AS book_author,
             b.isbn AS book_isbn,
-            b.cost AS book_cost,            
+            b.cost AS book_cost,
+            b.shelf_id AS book_shelf_id,
+            b.issue_date AS book_issue_date,
+            b.return_date AS book_return_date,            
 
             l.id AS librarian_id,
             l.name AS librarian_name

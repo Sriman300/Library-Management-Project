@@ -23,6 +23,9 @@ function normalizeBorrows(rows) {
     book_author: r.book_author ?? "-",
     book_isbn: r.book_isbn ?? "-",
     book_cost: r.book_cost ?? "-",
+    book_shelf_id: r.book_shelf_id ?? "-",
+    book_issue_date: r.book_issue_date ?? "-",
+    book_return_date: r.book_return_date ?? "-",
     librarian_id: r.librarian_id ?? "-",
     librarian_name: r.librarian_name ?? "-",
     student_id: r.student_id ?? "-",
@@ -47,6 +50,9 @@ const PROFILE_EXPORT_CONFIG = {
     { key: "book_isbn", label: "Book ISBN" },
     { key: "book_author", label: "Book Author" },
     { key: "book_cost", label: "Book Cost" },
+    { key: "book_shelf_id", label: "Book Shelf ID" },
+    { key: "book_issue_date", label: "Issue Date" },
+    { key: "book_return_date", label: "Return Date" },
     { key: "librarian_name", label: "Librarian Name" },
     { key: "student_name", label: "Student Name" },
     { key: "student_phone", label: "Student Phone" },
@@ -149,6 +155,9 @@ export async function initProfileController(studentId) {
           <td class="px-3 py-2">${r.book_author}</td>
           <td class="px-3 py-2">${r.book_isbn}</td>
           <td class="px-3 py-2">${r.book_cost}</td>
+          <td class="px-3 py-2">${r.book_shelf_id}</td>
+          <td class="px-3 py-2">${r.book_issue_date}</td>
+          <td class="px-3 py-2">${r.book_return_date}</td>
           <td class="px-3 py-2">${r.librarian_id}</td>
           <td class="px-3 py-2">${r.librarian_name}</td>
           <td class="px-3 py-2">${r.student_id}</td>
